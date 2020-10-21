@@ -734,21 +734,21 @@ p = ggrare(ps_OF_nz_ZM_ZEN, step = 100, label = "Sample_ID_fix",
     color = "Sample.Isolated.From")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-1.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 10000 reads
 p + geom_vline(xintercept = 10000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-2.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 5000 reads
 p + geom_vline(xintercept = 5000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-3.png)<!-- -->
 
 ``` r
 # 5000 reads might be a good middle ground based on
@@ -758,7 +758,7 @@ p + geom_vline(xintercept = 5000, linetype = "dashed")
 p + geom_vline(xintercept = 1000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-4.png)<!-- -->
 
 ``` r
 ## Let's look at library size to see distribution of reads
@@ -773,7 +773,7 @@ ggplot(data = df, aes(x = Index, y = LibrarySize, color = Sample.Isolated.From))
     geom_point() + geom_hline(yintercept = 5000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-5.png)<!-- -->
 
 ``` r
 summary(df$LibrarySize)
@@ -790,7 +790,7 @@ summary(df$LibrarySize)
 hist(df$LibrarySize, breaks = 50)  #right skewed
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-6.png)<!-- -->
 
 ``` r
 # 18S
@@ -800,14 +800,14 @@ p = ggrare(ps.18s_OF_nz_ZM_ZEN, step = 100, label = "Sample_ID_fix",
     color = "Sample.Isolated.From")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-7.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 5000 reads
 p + geom_vline(xintercept = 5000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-8.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-8.png)<!-- -->
 
 ``` r
 # 5000 reads might be a good middle ground based on
@@ -817,7 +817,7 @@ p + geom_vline(xintercept = 5000, linetype = "dashed")
 p + geom_vline(xintercept = 1000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-9.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-9.png)<!-- -->
 
 ``` r
 ## Let's look at library size to see distribution of reads
@@ -832,7 +832,7 @@ ggplot(data = df, aes(x = Index, y = LibrarySize, color = Sample.Isolated.From))
     geom_point() + geom_hline(yintercept = 1000, linetype = "dashed")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-10.png)<!-- -->
 
 ``` r
 summary(df$LibrarySize)
@@ -849,7 +849,7 @@ summary(df$LibrarySize)
 hist(df$LibrarySize, breaks = 50)  #right skewed
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/rare_plot-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-11.png)<!-- -->
 
 ### Subsetting & log transformations, calculating relative abundance
 
@@ -1004,7 +1004,7 @@ its_hp = its_hp + theme(axis.text.x = element_text(angle = -70,
 its_hp
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-1.png)<!-- -->
 
 ``` r
 # get only guilds for most abundant ASVs
@@ -1045,13 +1045,13 @@ its_all = its_all + theme(axis.text.x = element_text(angle = -70,
 its_all
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-2.png)<!-- -->
 
 ``` r
 its_hp + its_all + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-3.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/Funguild.ITS.pdf", plot = last_plot(), 
@@ -1170,7 +1170,7 @@ hp_18s = hp_18s + theme(axis.text.x = element_text(angle = -70,
 hp_18s
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-4.png)<!-- -->
 
 ``` r
 # get only guilds for most abundant ASVs
@@ -1212,13 +1212,13 @@ all_18s_fun = all_18s_fun + theme(axis.text.x = element_text(angle = -70,
 all_18s_fun
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-5.png)<!-- -->
 
 ``` r
 hp_18s + all_18s_fun + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/funguild-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/funguild-6.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/Funguild.18S.pdf", plot = last_plot(), 
@@ -1292,7 +1292,7 @@ its_bray_plot_st + its_clr_plot_st + its_hell_plot_st + plot_annotation(tag_leve
     plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_samptype-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_samptype-1.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/Ordinations.ITS.pdf", plot = last_plot(), 
@@ -1329,7 +1329,7 @@ bray_plot_18s_st + clr_plot_18s_st + hell_plot_18s_st + plot_annotation(tag_leve
     plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_samptype-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_samptype-2.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/Ordination.18s.pdf", plot = last_plot(), 
@@ -1341,7 +1341,7 @@ its_hell_plot_st + hell_plot_18s_st + plot_annotation(tag_levels = "A") +
     plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_samptype-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_samptype-3.png)<!-- -->
 
 ``` r
 ggsave(filename = "Ordination.Hell.Both.pdf", plot = last_plot(), 
@@ -1386,7 +1386,7 @@ its_hell_plot_site + hell_plot_18s_site + plot_annotation(tag_levels = "A") +
     plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_site-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_site-1.png)<!-- -->
 
 ``` r
 ggsave(filename = "Ordination.Hell.Both.Site.pdf", plot = last_plot(), 
@@ -1420,7 +1420,7 @@ its_hell_plot_oc + hell_plot_18s_oc + plot_annotation(tag_levels = "A") +
     plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_ocean-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_ocean-1.png)<!-- -->
 
 ``` r
 # ggsave(filename = 'Ordination.Hell.Both.OC.pdf', plot =
@@ -1432,7 +1432,7 @@ its_hell_plot_site + hell_plot_18s_site + its_hell_plot_oc +
     hell_plot_18s_oc + plot_annotation(tag_levels = "A") + plot_layout(guides = "collect")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/ord_ocean-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_ocean-2.png)<!-- -->
 
 ``` r
 # ggsave(filename = 'Ordination.Hell.Both.OCandsite.pdf',
@@ -2402,7 +2402,7 @@ alpha_its_shan = ggplot(avgs_alpha_its, aes(x = Site, y = (mean_S),
 alpha_its_shan
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/alpha_div-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/alpha_div-1.png)<!-- -->
 
 ``` r
 its_alpha_boxplot <- ggplot(alpha_its_2, aes(x = Sample.Isolated.From, 
@@ -2621,7 +2621,7 @@ alpha_18s_shan = ggplot(avgs_alpha_18s, aes(x = Site, y = (mean_S),
 alpha_18s_shan
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/alpha_div-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/alpha_div-2.png)<!-- -->
 
 ``` r
 alpha_18s_box <- ggplot(alpha_18s_2, aes(x = Sample.Isolated.From, 
@@ -2637,7 +2637,7 @@ alpha_18s_box <- ggplot(alpha_18s_2, aes(x = Sample.Isolated.From,
 its_alpha_boxplot + alpha_18s_box + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/alpha_div-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/alpha_div-3.png)<!-- -->
 
 ``` r
 ggsave(filename = "AlphaBox.sampletype.shannon.pdf", plot = last_plot(), 
@@ -2649,7 +2649,7 @@ ggsave(filename = "AlphaBox.sampletype.shannon.pdf", plot = last_plot(),
 alpha_its_shan/alpha_18s_shan + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/alpha_div-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/alpha_div-4.png)<!-- -->
 
 ``` r
 ggsave(filename = "AlphaBar.Site.shannon.pdf", plot = last_plot(), 
@@ -2721,7 +2721,7 @@ its_order_plot = its_order_plot + facet_wrap(~Sample.Isolated.From,
 its_order_plot
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mean_prop-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mean_prop-1.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/Tax.Bar.Order.ITS.pdf", plot = last_plot(), 
@@ -2796,7 +2796,7 @@ order_plot_18s = order_plot_18s + facet_wrap(~Sample.Isolated.From,
 order_plot_18s
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mean_prop-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mean_prop-2.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/Tax.Bar.Order.18s.pdf", plot = last_plot(), 
@@ -2812,7 +2812,7 @@ write.csv(avgs_g_18s, "JGI_18S/18S_mean_RA_order.csv")
 its_order_plot + order_plot_18s + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mean_prop-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mean_prop-3.png)<!-- -->
 
 ``` r
 ggsave(filename = "Tax.Bar.Order.pdf", plot = last_plot(), device = "pdf", 
@@ -3087,7 +3087,7 @@ rs.plot <- plot.list$RS + scale_color_manual(values = c("#D55E00",
 ls.plot + lr.plot + rs.plot + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/deseq-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/deseq-1.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/DESEQ.ITS.pdf", plot = last_plot(), 
@@ -3202,7 +3202,7 @@ for (i in contrasts) {
 plot.list$LS + plot.list$RS  #+ plot.list$LR
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/deseq-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/deseq-2.png)<!-- -->
 
 ``` r
 # standardize colors
@@ -3215,7 +3215,7 @@ rs.18s.plot <- plot.list$RS + scale_color_manual(values = c("#F0E442",
 ls.18s.plot + rs.18s.plot + plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/deseq-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/deseq-3.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/DESEQ.18S.pdf", plot = last_plot(), 
@@ -3361,7 +3361,7 @@ its_dist_bc.leaf.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-1.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -3378,7 +3378,7 @@ its_dist_hell.leaf.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-2.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -3414,7 +3414,7 @@ mantel.test.ZM.geo.leaf.corr.pac = vegan::mantel.correlog(comm.dist.leaf.pac,
 plot(mantel.test.ZM.geo.leaf.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-3.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3459,7 +3459,7 @@ mantel.test.ZM.geo.hell.leaf.corr.pac.plot <- as.ggplot(~plot(mantel.test.ZM.geo
 plot(mantel.test.ZM.geo.hell.leaf.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-4.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3540,7 +3540,7 @@ its_dist_bc.leaf.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-5.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -3557,7 +3557,7 @@ its_dist_hell.leaf.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-6.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -3593,7 +3593,7 @@ mantel.test.ZM.geo.leaf.corr.Atl = vegan::mantel.correlog(comm.dist.leaf.Atl,
 plot(mantel.test.ZM.geo.leaf.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-7.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3639,7 +3639,7 @@ mantel.test.ZM.geo.hell.leaf.corr.Atl.plot <- as.ggplot(~plot(mantel.test.ZM.geo
 plot(mantel.test.ZM.geo.hell.leaf.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-8.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-8.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3720,7 +3720,7 @@ its_dist_bc.root.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-9.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-9.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -3737,7 +3737,7 @@ its_dist_hell.root.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-10.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -3773,7 +3773,7 @@ mantel.test.ZM.geo.root.corr.pac = vegan::mantel.correlog(comm.dist.root.pac,
 plot(mantel.test.ZM.geo.root.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-11.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3813,7 +3813,7 @@ mantel.test.ZM.geo.hell.root.corr.pac = vegan::mantel.correlog(comm.dist.hell.ro
 plot(mantel.test.ZM.geo.hell.root.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-12.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-12.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3894,7 +3894,7 @@ its_dist_bc.root.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-13.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-13.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -3911,7 +3911,7 @@ its_dist_hell.root.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-14.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-14.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -3947,7 +3947,7 @@ mantel.test.ZM.geo.root.corr.Atl = vegan::mantel.correlog(comm.dist.root.Atl,
 plot(mantel.test.ZM.geo.root.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-15.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-15.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -3987,7 +3987,7 @@ mantel.test.ZM.geo.hell.root.corr.Atl = vegan::mantel.correlog(comm.dist.hell.ro
 plot(mantel.test.ZM.geo.hell.root.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-16.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-16.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4068,7 +4068,7 @@ its_dist_bc.sed.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-17.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-17.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4085,7 +4085,7 @@ its_dist_hell.sed.pac
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-18.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-18.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -4121,7 +4121,7 @@ mantel.test.ZM.geo.sed.corr.pac = vegan::mantel.correlog(comm.dist.sed.pac,
 plot(mantel.test.ZM.geo.sed.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-19.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-19.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4161,7 +4161,7 @@ mantel.test.ZM.geo.hell.sed.corr.pac = vegan::mantel.correlog(comm.dist.hell.sed
 plot(mantel.test.ZM.geo.hell.sed.corr.pac)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-20.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-20.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4242,7 +4242,7 @@ its_dist_bc.sed.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-21.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-21.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4259,7 +4259,7 @@ its_dist_hell.sed.Atl
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-22.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-22.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -4295,7 +4295,7 @@ mantel.test.ZM.geo.sed.corr.Atl = vegan::mantel.correlog(comm.dist.sed.Atl,
 plot(mantel.test.ZM.geo.sed.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-23.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-23.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4335,7 +4335,7 @@ mantel.test.ZM.geo.hell.sed.corr.Atl = vegan::mantel.correlog(comm.dist.hell.sed
 plot(mantel.test.ZM.geo.hell.sed.corr.Atl)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_its-24.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_its-24.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4431,7 +4431,7 @@ euk_dist_bc.leaf.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-1.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4448,7 +4448,7 @@ euk_dist_hell.leaf.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-2.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -4484,7 +4484,7 @@ mantel.test.ZM.geo.leaf.corr.pac.18s = vegan::mantel.correlog(comm.dist.leaf.pac
 plot(mantel.test.ZM.geo.leaf.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-3.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4524,7 +4524,7 @@ mantel.test.ZM.geo.hell.leaf.corr.pac.18s = vegan::mantel.correlog(comm.dist.hel
 plot(mantel.test.ZM.geo.hell.leaf.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-4.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4605,7 +4605,7 @@ euk_dist_bc.leaf.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-5.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4622,7 +4622,7 @@ euk_dist_hell.leaf.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-6.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -4658,7 +4658,7 @@ mantel.test.ZM.geo.leaf.corr.Atl.18s = vegan::mantel.correlog(comm.dist.leaf.Atl
 plot(mantel.test.ZM.geo.leaf.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-7.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4698,7 +4698,7 @@ mantel.test.ZM.geo.hell.leaf.corr.Atl.18s = vegan::mantel.correlog(comm.dist.hel
 plot(mantel.test.ZM.geo.hell.leaf.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-8.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-8.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4779,7 +4779,7 @@ euk_dist_bc.root.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-9.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-9.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4796,7 +4796,7 @@ euk_dist_hell.root.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-10.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -4832,7 +4832,7 @@ mantel.test.ZM.geo.root.corr.pac.18s = vegan::mantel.correlog(comm.dist.root.pac
 plot(mantel.test.ZM.geo.root.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-11.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4872,7 +4872,7 @@ mantel.test.ZM.geo.hell.root.corr.pac.18s = vegan::mantel.correlog(comm.dist.hel
 plot(mantel.test.ZM.geo.hell.root.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-12.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-12.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -4953,7 +4953,7 @@ euk_dist_bc.root.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-13.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-13.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -4970,7 +4970,7 @@ euk_dist_hell.root.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-14.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-14.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -5006,7 +5006,7 @@ mantel.test.ZM.geo.root.corr.Atl.18s = vegan::mantel.correlog(comm.dist.root.Atl
 plot(mantel.test.ZM.geo.root.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-15.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-15.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5046,7 +5046,7 @@ mantel.test.ZM.geo.hell.root.corr.Atl.18s = vegan::mantel.correlog(comm.dist.hel
 plot(mantel.test.ZM.geo.hell.root.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-16.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-16.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5127,7 +5127,7 @@ euk_dist_bc.sed.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-17.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-17.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -5144,7 +5144,7 @@ euk_dist_hell.sed.pac.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-18.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-18.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -5180,7 +5180,7 @@ mantel.test.ZM.geo.sed.corr.pac.18s = vegan::mantel.correlog(comm.dist.sed.pac.1
 plot(mantel.test.ZM.geo.sed.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-19.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-19.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5220,7 +5220,7 @@ mantel.test.ZM.geo.hell.sed.corr.pac.18s = vegan::mantel.correlog(comm.dist.hell
 plot(mantel.test.ZM.geo.hell.sed.corr.pac.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-20.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-20.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5301,7 +5301,7 @@ euk_dist_bc.sed.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-21.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-21.png)<!-- -->
 
 ``` r
 # plot Hellinger distance
@@ -5318,7 +5318,7 @@ euk_dist_hell.sed.Atl.18s
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-22.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-22.png)<!-- -->
 
 ``` r
 # bray curtis mantel test
@@ -5354,7 +5354,7 @@ mantel.test.ZM.geo.sed.corr.Atl.18s = vegan::mantel.correlog(comm.dist.sed.Atl.1
 plot(mantel.test.ZM.geo.sed.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-23.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-23.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5394,7 +5394,7 @@ mantel.test.ZM.geo.hell.sed.corr.Atl.18s = vegan::mantel.correlog(comm.dist.hell
 plot(mantel.test.ZM.geo.hell.sed.corr.Atl.18s)
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_oc_18s-24.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_oc_18s-24.png)<!-- -->
 
 ``` r
 # x axis are bins, depicted at the middle of the bin, so the
@@ -5458,7 +5458,7 @@ its_dist_hell.leaf.pac + its_dist_hell.leaf.Atl + plot_annotation(tag_levels = "
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_plots-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_plots-1.png)<!-- -->
 
 ``` r
 # ggsave(filename =
@@ -5493,7 +5493,7 @@ its_dist_hell.leaf.pac + its_dist_hell.leaf.Atl + plot_annotation(tag_levels = "
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_plots-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_plots-2.png)<!-- -->
 
 ``` r
 # ggsave(filename =
@@ -5538,7 +5538,7 @@ its_dist_hell.leaf.pac + its_dist_hell.leaf.Atl + plot_annotation(tag_levels = "
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_plots-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_plots-3.png)<!-- -->
 
 ``` r
 # ggsave(filename = 'Mantel.Hell.DistDecay.18S.pacatl.pdf',
@@ -5550,7 +5550,7 @@ mantel.test.ZM.geo.hell.leaf.corr.pac.plot + mantel.test.ZM.geo.hell.leaf.corr.A
     plot_annotation(tag_levels = "A")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/dist_decay_plots-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/dist_decay_plots-4.png)<!-- -->
 
 ``` r
 # ggsave(filename =
@@ -5579,7 +5579,7 @@ ggplot() + geom_polygon(data = globe, aes(x = long, y = lat,
     175), ylim = c(0, 85))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-1.png)<!-- -->
 
 ``` r
 ## abundant plots ##
@@ -5714,25 +5714,25 @@ ITS_SV219_plot <- p + theme(legend.position = "none") + scale_x_discrete(labels 
 ITS_SV219_plot  #mostly Pacific, leaves + roots
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-2.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV260  #more abundant on leaves, roots, not in sediment, GLOBAL!  - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-3.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV362  #only Croatia and only leaves - chytrid - interesting! similar pattern in high abundance to was seen in Ettinger & Eisen (2019)  - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-4.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV426  #leaves > roots > sediment, possibly global, but also abundant in FM sediment? - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-5.png)<!-- -->
 
 ``` r
 asv_leaf <- c("ITS_SV219", "ITS_SV260", "ITS_SV362", "ITS_SV426")
@@ -5741,61 +5741,61 @@ asv_leaf <- c("ITS_SV219", "ITS_SV260", "ITS_SV362", "ITS_SV426")
 plot.list$ITS_SV52
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-6.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV60  #more abundant leaf, roots - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-7.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV107  #more abundant on roots - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-8.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-8.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV125  #more abundant leaf, roots - more abundant root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-9.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-9.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV234  #more abundant roots, possibly semi-global - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-10.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV355  #more abundant on roots, possibly semi-global - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-11.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV497  #leaves, roots, global? not in sediment - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-12.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-12.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV841  # roots, semi-global? - more abundant root vs. leaf and sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-13.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-13.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV855  # roots, some leaves, global? - more abundant roots > leaves > sediment deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-14.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-14.png)<!-- -->
 
 ``` r
 plot.list$ITS_SV883  # roots, some leaves, global? - more abundant roots > leaves > sediment
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-15.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-15.png)<!-- -->
 
 ``` r
 asv_root <- c("ITS_SV52", "ITS_SV60", "ITS_SV107", "ITS_SV125", 
@@ -5826,14 +5826,14 @@ plot.list$ITS_SV389  #more on leaves, Wales - Pacfic vs. Atlantic deseq
 plot.list$ITS_SV679  #mostly sediment - more abundant root and sed vs. leaf deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-16.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-16.png)<!-- -->
 
 ``` r
 # messy / weak signal
 plot.list$ITS_SV1045  # roots, leafs, pacific? weak - more abundant leaf / root vs. sed deseq
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-17.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-17.png)<!-- -->
 
 ``` r
 asv_leaf
@@ -5910,25 +5910,25 @@ for (i in asv_leaf) {
 map.plot.list$ITS_SV219
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-18.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-18.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV260
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-19.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-19.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV362
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-20.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-20.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV426
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-21.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-21.png)<!-- -->
 
 ``` r
 asv_root
@@ -6015,61 +6015,61 @@ for (i in asv_root) {
 map.plot.list$ITS_SV52
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-22.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-22.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV60
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-23.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-23.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV107
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-24.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-24.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV125
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-25.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-25.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV234
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-26.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-26.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV355
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-27.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-27.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV497
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-28.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-28.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV841
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-29.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-29.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV855
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-30.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-30.png)<!-- -->
 
 ``` r
 map.plot.list$ITS_SV883
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-31.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-31.png)<!-- -->
 
 ``` r
 # combine plots (examples for discussion in text?)
@@ -6080,7 +6080,7 @@ map.plot.list$ITS_SV219/ITS_SV219_plot + plot_annotation(tag_levels = "A") +
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-32.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-32.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/ITS_SV219.pdf", plot = last_plot(), 
@@ -6092,7 +6092,7 @@ map.plot.list$ITS_SV260/plot.list$ITS_SV260 + plot_annotation(tag_levels = "A") 
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-33.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-33.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/ITS_SV260.pdf", plot = last_plot(), 
@@ -6104,7 +6104,7 @@ map.plot.list$ITS_SV362/plot.list$ITS_SV362 + plot_annotation(tag_levels = "A") 
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-34.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-34.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/ITS_SV362.pdf", plot = last_plot(), 
@@ -6117,7 +6117,7 @@ map.plot.list$ITS_SV52/plot.list$ITS_SV52 + plot_annotation(tag_levels = "A") +
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot-35.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-35.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_ITS/ITS_SV52.pdf", plot = last_plot(), 
@@ -6200,19 +6200,19 @@ for (i in ASVs.plot.18s) {
 plot.list.18s$"18S_SV756"  # leaves, pacific? - sig roots vs. sediment, NA > europe
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-1.png)<!-- -->
 
 ``` r
 plot.list.18s$"18S_SV928"  # leaves and roots, global? - sig leaf and roots vs. sediment
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-2.png)<!-- -->
 
 ``` r
 plot.list.18s$"18S_SV968"  # leaf and roots, mostly crotia - sig leaf and roots vs sediment, sig. NA > Asia and europe > Asia
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-3.png)<!-- -->
 
 ``` r
 plot.list.18s$"18S_SV1734"  #leaf and roots, alaska - sig pacific vs atlantic
@@ -6224,7 +6224,7 @@ plot.list.18s$"18S_SV1734"  #leaf and roots, alaska - sig pacific vs atlantic
 plot.list.18s$"18S_SV1977"  #leaf and roots, alaska / canada - sig NA > europe
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-4.png)<!-- -->
 
 ``` r
 asv_leaf <- c("18S_SV756", "18S_SV928", "18S_SV968", "18S_SV1734", 
@@ -6323,31 +6323,31 @@ for (i in asv_leaf) {
 map.plot.list$"18S_SV756"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-5.png)<!-- -->
 
 ``` r
 map.plot.list$"18S_SV928"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-6.png)<!-- -->
 
 ``` r
 map.plot.list$"18S_SV968"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-7.png)<!-- -->
 
 ``` r
 map.plot.list$"18S_SV1734"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-8.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-8.png)<!-- -->
 
 ``` r
 map.plot.list$"18S_SV1977"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-9.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-9.png)<!-- -->
 
 ``` r
 asv_sed
@@ -6419,13 +6419,13 @@ for (i in asv_sed) {
 map.plot.list$"18S_SV897"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-10.png)<!-- -->
 
 ``` r
 map.plot.list$"18S_SV2023"
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-11.png)<!-- -->
 
 ``` r
 # combine plots (examples for discussion in text?)
@@ -6436,7 +6436,7 @@ map.plot.list$"18S_SV928"/plot.list.18s$"18S_SV928" + plot_annotation(tag_levels
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-12.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-12.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/18S_SV928.pdf", plot = last_plot(), 
@@ -6449,7 +6449,7 @@ map.plot.list$"18S_SV968"/plot.list.18s$"18S_SV968" + plot_annotation(tag_levels
         "null")))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/mapplot_18s-13.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-13.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/18S_SV968.pdf", plot = last_plot(), 
@@ -6613,7 +6613,7 @@ ggplot(BC_ranked[1:500,], aes(x=factor(BC_ranked$rank[1:500], levels=BC_ranked$r
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-1.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -6702,7 +6702,7 @@ leaf_ao_curves <- ggplot() +
 leaf_ao_curves
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-2.png)<!-- -->
 
 ``` r
 #ROOT
@@ -6856,7 +6856,7 @@ ggplot(BC_ranked[1:500,], aes(x=factor(BC_ranked$rank[1:500], levels=BC_ranked$r
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-3.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -6946,7 +6946,7 @@ root_ao_curves <- ggplot() +
 root_ao_curves
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-4.png)<!-- -->
 
 ``` r
 #SEDIMENT
@@ -7100,7 +7100,7 @@ ggplot(BC_ranked[1:100,], aes(x=factor(BC_ranked$rank[1:100], levels=BC_ranked$r
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-5.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -7190,7 +7190,7 @@ sed_ao_curves <- ggplot() +
 sed_ao_curves
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-6.png)<!-- -->
 
 ``` r
 #combined list of core ASVs
@@ -7234,7 +7234,7 @@ tax.list.asvs$ASV[core_and_deseq]
 leaf_ao_curves + root_ao_curves + sed_ao_curves + plot_annotation(tag_levels = 'A')
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_ITS-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_ITS-7.png)<!-- -->
 
 ``` r
 ggsave(filename = 'JGI_ITS/AOcurves_neutralmodels_core.pdf', plot = last_plot(), device = 'pdf', width = 12, height = 5, dpi = 300)
@@ -7393,7 +7393,7 @@ ggplot(BC_ranked[1:25,], aes(x=factor(BC_ranked$rank[1:25], levels=BC_ranked$ran
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-1.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -7484,7 +7484,7 @@ leaf_ao_curves.18s <- ggplot() +
 leaf_ao_curves.18s
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-2.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-2.png)<!-- -->
 
 ``` r
 #ROOT
@@ -7638,7 +7638,7 @@ ggplot(BC_ranked[1:100,], aes(x=factor(BC_ranked$rank[1:100], levels=BC_ranked$r
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-3.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-3.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -7726,7 +7726,7 @@ root_ao_curves.18s <- ggplot() +
 root_ao_curves.18s
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-4.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-4.png)<!-- -->
 
 ``` r
 #SEDIMENT
@@ -7881,7 +7881,7 @@ ggplot(BC_ranked[1:100,], aes(x=factor(BC_ranked$rank[1:100], levels=BC_ranked$r
   annotate(geom="text", x=data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)])))+3, y=.5, label=paste("Last 10% increase (",data.table::last(as.numeric(as.character(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.1)]))),")",sep=''), color="blue")
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-5.png)<!-- -->
 
 ``` r
 #Creating occupancy abundance plot
@@ -7969,7 +7969,7 @@ sed_ao_curves.18s <- ggplot() +
 sed_ao_curves.18s
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-6.png)<!-- -->
 
 ``` r
 #combined list of core ASVs
@@ -8003,7 +8003,7 @@ tax.list.asvs.18s$ASV[core_and_deseq_18s]
 leaf_ao_curves.18s + root_ao_curves.18s + sed_ao_curves.18s + plot_annotation(tag_levels = 'A')
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/AO_18S-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/AO_18S-7.png)<!-- -->
 
 ``` r
 ggsave(filename = 'JGI_18S/AOcurves_neutralmodels_core.pdf', plot = last_plot(), device = 'pdf', width = 12, height = 5, dpi = 300)
@@ -8063,7 +8063,7 @@ vennDiagram(venn_counts.ao, cex = c(1, 1.2, 0.8), names = c("Leaf",
     "#3F4788FF"))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/venn-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/venn-1.png)<!-- -->
 
 ``` r
 # grid.newpage() Plot for publication (RMarkdown hates)
@@ -8139,7 +8139,7 @@ vennDiagram(venn_counts.18s.ao, cex = c(1, 1.2, 0.8), names = c("Leaf",
     "#3F4788FF"))
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/venn_18s-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/venn_18s-1.png)<!-- -->
 
 ``` r
 # Plot for publication (RMarkdown hates) grid.newpage() #add
@@ -8287,7 +8287,7 @@ plot_euk_phy = plot_euk_phy + facet_wrap(~Sample.Isolated.From) +
 plot_euk_phy
 ```
 
-![](RMarkdown_GlobalITS_Merged_pub_files/figure-gfm/eukplot-1.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/eukplot-1.png)<!-- -->
 
 ``` r
 ggsave(filename = "JGI_18S/Mean_Euk_phyla.pdf", plot = last_plot(), 
