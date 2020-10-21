@@ -1,5 +1,4 @@
-R code used to analyze fungal ITS and 18S amplicons from a global survey
-of Zostera marina
+Global diversity and biogeography of the Zostera marina mycobiome - RMarkdown of Code
 ================
 Cassie Ettinger
 
