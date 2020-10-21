@@ -1,4 +1,4 @@
-Global diversity and biogeography of the Zostera marina mycobiome - RMarkdown of Code
+Global diversity and biogeography of the Zostera marina mycobiome: RMarkdown of Code
 ================
 Cassie Ettinger
 
