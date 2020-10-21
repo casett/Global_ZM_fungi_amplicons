@@ -3199,12 +3199,7 @@ for (i in contrasts) {
 
 # LR = no sig results, had to remove from loop
 
-plot.list$LS + plot.list$RS  #+ plot.list$LR
-```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/deseq-2.png)<!-- -->
-
-``` r
 # standardize colors
 ls.18s.plot <- plot.list$LS + scale_color_manual(values = c("#F0E442", 
     "#56B4E9"))
@@ -5574,14 +5569,10 @@ globe <- map_data("world")
 mybreaks = c(0, 25, 50, 75, 100)
 
 # plot world map
-ggplot() + geom_polygon(data = globe, aes(x = long, y = lat, 
+#ggplot() + geom_polygon(data = globe, aes(x = long, y = lat, 
     group = group), fill = "grey", alpha = 0.3) + coord_quickmap(xlim = c(-175, 
     175), ylim = c(0, 85))
-```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-1.png)<!-- -->
-
-``` r
 ## abundant plots ##
 
 # tax.list.asvs
@@ -5711,131 +5702,48 @@ ITS_SV219_plot <- p + theme(legend.position = "none") + scale_x_discrete(labels 
 # plot results, observation notes based on visual differences
 
 # when mapping plot - LEAVES
-ITS_SV219_plot  #mostly Pacific, leaves + roots
-```
+#ITS_SV219_plot  #mostly Pacific, leaves + roots
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-2.png)<!-- -->
+#plot.list$ITS_SV260  #more abundant on leaves, roots, not in sediment, GLOBAL!  - more abundant leaf / root vs. sed deseq
 
-``` r
-plot.list$ITS_SV260  #more abundant on leaves, roots, not in sediment, GLOBAL!  - more abundant leaf / root vs. sed deseq
-```
+#plot.list$ITS_SV362  #only Croatia and only leaves - chytrid - interesting! similar pattern in high abundance to was seen in Ettinger & Eisen (2019)  - more abundant leaf / root vs. sed deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-3.png)<!-- -->
+#plot.list$ITS_SV426  #leaves > roots > sediment, possibly global, but also abundant in FM sediment? - more abundant leaf / root vs. sed deseq
 
-``` r
-plot.list$ITS_SV362  #only Croatia and only leaves - chytrid - interesting! similar pattern in high abundance to was seen in Ettinger & Eisen (2019)  - more abundant leaf / root vs. sed deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-4.png)<!-- -->
-
-``` r
-plot.list$ITS_SV426  #leaves > roots > sediment, possibly global, but also abundant in FM sediment? - more abundant leaf / root vs. sed deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-5.png)<!-- -->
-
-``` r
 asv_leaf <- c("ITS_SV219", "ITS_SV260", "ITS_SV362", "ITS_SV426")
 
 # when mapping plot - ROOTS
-plot.list$ITS_SV52
-```
+#plot.list$ITS_SV52
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-6.png)<!-- -->
+#plot.list$ITS_SV60  #more abundant leaf, roots - more abundant leaf / root vs. sed deseq
 
-``` r
-plot.list$ITS_SV60  #more abundant leaf, roots - more abundant leaf / root vs. sed deseq
-```
+#plot.list$ITS_SV107  #more abundant on roots - more abundant leaf / root vs. sed deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-7.png)<!-- -->
+#plot.list$ITS_SV125  #more abundant leaf, roots - more abundant root vs. sed deseq
 
-``` r
-plot.list$ITS_SV107  #more abundant on roots - more abundant leaf / root vs. sed deseq
-```
+#plot.list$ITS_SV234  #more abundant roots, possibly semi-global - more abundant leaf / root vs. sed deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-8.png)<!-- -->
+#plot.list$ITS_SV355  #more abundant on roots, possibly semi-global - more abundant leaf / root vs. sed deseq
 
-``` r
-plot.list$ITS_SV125  #more abundant leaf, roots - more abundant root vs. sed deseq
-```
+#plot.list$ITS_SV497  #leaves, roots, global? not in sediment - more abundant leaf / root vs. sed deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-9.png)<!-- -->
+#plot.list$ITS_SV841  # roots, semi-global? - more abundant root vs. leaf and sed deseq
 
-``` r
-plot.list$ITS_SV234  #more abundant roots, possibly semi-global - more abundant leaf / root vs. sed deseq
-```
+#plot.list$ITS_SV855  # roots, some leaves, global? - more abundant roots > leaves > sediment deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-10.png)<!-- -->
+#plot.list$ITS_SV883  # roots, some leaves, global? - more abundant roots > leaves > sediment
 
-``` r
-plot.list$ITS_SV355  #more abundant on roots, possibly semi-global - more abundant leaf / root vs. sed deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-11.png)<!-- -->
-
-``` r
-plot.list$ITS_SV497  #leaves, roots, global? not in sediment - more abundant leaf / root vs. sed deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-12.png)<!-- -->
-
-``` r
-plot.list$ITS_SV841  # roots, semi-global? - more abundant root vs. leaf and sed deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-13.png)<!-- -->
-
-``` r
-plot.list$ITS_SV855  # roots, some leaves, global? - more abundant roots > leaves > sediment deseq
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-14.png)<!-- -->
-
-``` r
-plot.list$ITS_SV883  # roots, some leaves, global? - more abundant roots > leaves > sediment
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-15.png)<!-- -->
-
-``` r
 asv_root <- c("ITS_SV52", "ITS_SV60", "ITS_SV107", "ITS_SV125", 
     "ITS_SV234", "ITS_SV355", "ITS_SV497", "ITS_SV841", "ITS_SV855", 
     "ITS_SV883")
 
-# country specific - no differeces across tissues, etc, prob
-# no need for map plot
-plot.list$ITS_SV75  #more abundant in Wales - Pacific vs. Atlantic deseq
-```
 
-    ## NULL
-
-``` r
-plot.list$ITS_SV230  #only Wales - Pacfic vs. Atlantic deseq
-```
-
-    ## NULL
-
-``` r
-plot.list$ITS_SV389  #more on leaves, Wales - Pacfic vs. Atlantic deseq 
-```
-
-    ## NULL
-
-``` r
 # sediment
-plot.list$ITS_SV679  #mostly sediment - more abundant root and sed vs. leaf deseq
-```
+#plot.list$ITS_SV679  #mostly sediment - more abundant root and sed vs. leaf deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-16.png)<!-- -->
-
-``` r
 # messy / weak signal
-plot.list$ITS_SV1045  # roots, leafs, pacific? weak - more abundant leaf / root vs. sed deseq
-```
+#plot.list$ITS_SV1045  # roots, leafs, pacific? weak - more abundant leaf / root vs. sed deseq
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-17.png)<!-- -->
-
-``` r
 asv_leaf
 ```
 
@@ -5907,30 +5815,14 @@ for (i in asv_leaf) {
     ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
 
 ``` r
-map.plot.list$ITS_SV219
-```
+#map.plot.list$ITS_SV219
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-18.png)<!-- -->
+#map.plot.list$ITS_SV260
 
-``` r
-map.plot.list$ITS_SV260
-```
+#map.plot.list$ITS_SV362
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-19.png)<!-- -->
+#map.plot.list$ITS_SV426
 
-``` r
-map.plot.list$ITS_SV362
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-20.png)<!-- -->
-
-``` r
-map.plot.list$ITS_SV426
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-21.png)<!-- -->
-
-``` r
 asv_root
 ```
 
@@ -6012,66 +5904,26 @@ for (i in asv_root) {
     ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
 
 ``` r
-map.plot.list$ITS_SV52
-```
+#map.plot.list$ITS_SV52
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-22.png)<!-- -->
+#map.plot.list$ITS_SV60
 
-``` r
-map.plot.list$ITS_SV60
-```
+#map.plot.list$ITS_SV107
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-23.png)<!-- -->
+#map.plot.list$ITS_SV125
 
-``` r
-map.plot.list$ITS_SV107
-```
+#map.plot.list$ITS_SV234
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-24.png)<!-- -->
+#map.plot.list$ITS_SV355
 
-``` r
-map.plot.list$ITS_SV125
-```
+#map.plot.list$ITS_SV497
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-25.png)<!-- -->
+#map.plot.list$ITS_SV841
 
-``` r
-map.plot.list$ITS_SV234
-```
+#map.plot.list$ITS_SV855
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-26.png)<!-- -->
+#map.plot.list$ITS_SV883
 
-``` r
-map.plot.list$ITS_SV355
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-27.png)<!-- -->
-
-``` r
-map.plot.list$ITS_SV497
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-28.png)<!-- -->
-
-``` r
-map.plot.list$ITS_SV841
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-29.png)<!-- -->
-
-``` r
-map.plot.list$ITS_SV855
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-30.png)<!-- -->
-
-``` r
-map.plot.list$ITS_SV883
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-31.png)<!-- -->
-
-``` r
 # combine plots (examples for discussion in text?)
 
 # sv219, not core (all), dispersal limited (leaves only)
@@ -6197,54 +6049,16 @@ for (i in ASVs.plot.18s) {
 # no Colletotrichum in 18S data
 
 # when mapping plot - LEAVES
-plot.list.18s$"18S_SV756"  # leaves, pacific? - sig roots vs. sediment, NA > europe
-```
+#plot.list.18s$"18S_SV756"  # leaves, pacific? - sig roots vs. sediment, NA > europe
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-1.png)<!-- -->
+#plot.list.18s$"18S_SV928"  # leaves and roots, global? - sig leaf and roots vs. sediment
 
-``` r
-plot.list.18s$"18S_SV928"  # leaves and roots, global? - sig leaf and roots vs. sediment
-```
+#plot.list.18s$"18S_SV968"  # leaf and roots, mostly crotia - sig leaf and roots vs sediment, sig. NA > Asia and europe > Asia
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-2.png)<!-- -->
+#plot.list.18s$"18S_SV1977"  #leaf and roots, alaska / canada - sig NA > europe
 
-``` r
-plot.list.18s$"18S_SV968"  # leaf and roots, mostly crotia - sig leaf and roots vs sediment, sig. NA > Asia and europe > Asia
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-3.png)<!-- -->
-
-``` r
-plot.list.18s$"18S_SV1734"  #leaf and roots, alaska - sig pacific vs atlantic
-```
-
-    ## NULL
-
-``` r
-plot.list.18s$"18S_SV1977"  #leaf and roots, alaska / canada - sig NA > europe
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-4.png)<!-- -->
-
-``` r
 asv_leaf <- c("18S_SV756", "18S_SV928", "18S_SV968", "18S_SV1734", 
     "18S_SV1977")
-
-
-# when mapping plot -sediment
-plot.list.18s$"18S_SV897"  #sediment, Japan - sig asia > NA > Europe
-```
-
-    ## NULL
-
-``` r
-plot.list.18s$"18S_SV2023"  #roots, sediment, Japan - sig asia > europe / NA
-```
-
-    ## NULL
-
-``` r
-asv_sed <- c("18S_SV897", "18S_SV2023")
 
 
 asv_leaf
@@ -6320,114 +6134,16 @@ for (i in asv_leaf) {
     ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
 
 ``` r
-map.plot.list$"18S_SV756"
-```
+#map.plot.list$"18S_SV756"
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-5.png)<!-- -->
+#map.plot.list$"18S_SV928"
 
-``` r
-map.plot.list$"18S_SV928"
-```
+#map.plot.list$"18S_SV968"
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-6.png)<!-- -->
+#map.plot.list$"18S_SV1734"
 
-``` r
-map.plot.list$"18S_SV968"
-```
+#map.plot.list$"18S_SV1977"
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-7.png)<!-- -->
-
-``` r
-map.plot.list$"18S_SV1734"
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-8.png)<!-- -->
-
-``` r
-map.plot.list$"18S_SV1977"
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-9.png)<!-- -->
-
-``` r
-asv_sed
-```
-
-    ## [1] "18S_SV897"  "18S_SV2023"
-
-``` r
-mybreaks.sed = list(`18S_SV897` = c(0, 10, 15, 20, 25), `18S_SV2023` = c(0, 
-    2, 4, 6, 8))
-limits.sed = list(`18S_SV897` = c(0, 25), `18S_SV2023` = c(0, 
-    8))
-
-for (i in asv_sed) {
-    # subset phyloseq object to only have ASV of interest
-    ps_18s_prune = prune_taxa(i, ps.18s_OF_nz_ZM_ZEN.RA)
-    
-    # subset to leaves
-    ps_18s_prune_sed <- subset_samples(ps_18s_prune, Sample.Isolated.From == 
-        "sediment")
-    
-    # melt to df
-    df_g <- psmelt(ps_18s_prune_sed)
-    
-    # Reorder data to show biggest cities on top
-    df_g <- df_g %>% arrange(Abundance) %>% mutate(Abundance = Abundance * 
-        100)
-    
-    df_g$lat <- df_g$Latitude.Value.must.be.in.decimal.format.with.values.between..90.and.90.
-    df_g$long <- df_g$Longitude.Value.must.be.in.decimal.format.with.values.between..180.and.180.
-    
-    
-    grouped_g_ps_18s_prune_sed <- group_by(df_g, Site, OTU, lat, 
-        long, Sample.Isolated.From)
-    avgs_g_ps_18s_prune_sed <- summarise(grouped_g_ps_18s_prune_sed, 
-        mean = mean(Abundance))
-    
-    
-    # Build the map
-    p <- ggplot() + geom_polygon(data = globe, aes(x = long, 
-        y = lat, group = group), fill = "grey", alpha = 0.3) + 
-        geom_point(data = avgs_g_ps_18s_prune_sed, aes(x = long, 
-            y = lat, size = mean, color = mean), shape = 20, 
-            stroke = FALSE) + scale_size_continuous(breaks = as.numeric(unlist(mybreaks.sed[i])), 
-        limits = as.numeric(unlist(limits.sed[i]))) + coord_quickmap(xlim = c(-175, 
-        175), ylim = c(25, 85)) + scale_color_viridis(end = 0.9, 
-        breaks = as.numeric(unlist(mybreaks.sed[i])), limits = as.numeric(unlist(limits.sed[i]))) + 
-        theme(text = element_text(size = 18)) + guides(color = guide_legend(title = "Mean Relative Abundance"), 
-        size = guide_legend(title = "Mean Relative Abundance")) + 
-        facet_wrap(~Sample.Isolated.From, strip.position = "left") + 
-        theme(panel.background = element_blank(), panel.border = element_blank(), 
-            panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
-            legend.key = element_rect(fill = NA, color = NA), 
-            axis.text.y = element_blank(), axis.text.x = element_blank(), 
-            axis.title.x = element_blank(), axis.ticks.y = element_blank(), 
-            axis.ticks.x = element_blank(), axis.title.y = element_blank())
-    
-    # plot
-    
-    map.plot.list[[i]] = p
-    
-}
-```
-
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-
-``` r
-map.plot.list$"18S_SV897"
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-10.png)<!-- -->
-
-``` r
-map.plot.list$"18S_SV2023"
-```
-
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-11.png)<!-- -->
-
-``` r
 # combine plots (examples for discussion in text?)
 
 # sv928, core (leaf and root), plant selected
