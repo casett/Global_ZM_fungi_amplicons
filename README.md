@@ -15,4 +15,5 @@ coming soon!
 
 
 ### Funding
-This work was supported in part by a community sequencing proposal from the Joint Genome Institute, "Population and evolutionary genomics of Zostera marina and its microbiome, and genome diagnostics of other seagrass species” (proposal ID# 503251).
+This work was supported in part by a community sequencing proposal from the U.S. Department of Energy Joint Genome Institute, "Population and evolutionary genomics of Zostera marina and its microbiome, and genome diagnostics of other seagrass species” (proposal ID# 503251). The work conducted by the U.S. Department of Energy Joint Genome Institute was further supported by the Office of Science of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.
+
