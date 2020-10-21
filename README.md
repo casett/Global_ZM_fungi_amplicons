@@ -7,8 +7,7 @@
 
 
 ### To cite this work or code
-coming soon!
-
+Cassie Ettinger. 2020. casett/Global_ZM_fungi_amplicons v1.0. DOI: 10.5281/zenodo.4116550.
 
 ### Abstract
 coming soon!
