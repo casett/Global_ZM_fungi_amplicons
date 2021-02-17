@@ -1,4 +1,5 @@
-Global diversity and biogeography of the Zostera marina mycobiome: RMarkdown of Code
+R code used to analyze fungal ITS and 18S amplicons from a global survey
+of Zostera marina
 ================
 Cassie Ettinger
 
@@ -50,9 +51,9 @@ library(minpack.lm)
 sessionInfo()
 ```
 
-    ## R version 4.0.2 (2020-06-22)
+    ## R version 4.0.3 (2020-10-10)
     ## Platform: x86_64-apple-darwin17.0 (64-bit)
-    ## Running under: macOS Catalina 10.15.7
+    ## Running under: macOS Big Sur 10.16
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -66,75 +67,77 @@ sessionInfo()
     ##  [8] datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] minpack.lm_1.2-1            Hmisc_4.4-0                
-    ##  [3] Formula_1.2-3               reltools_0.1.0             
+    ##  [1] minpack.lm_1.2-1            Hmisc_4.4-2                
+    ##  [3] Formula_1.2-4               reltools_0.1.0             
     ##  [5] ggplotify_0.0.5             scales_1.1.1               
-    ##  [7] biobroom_1.20.0             broom_0.5.6                
-    ##  [9] EcolUtils_0.1               patchwork_1.0.1            
+    ##  [7] biobroom_1.20.0             broom_0.7.4                
+    ##  [9] EcolUtils_0.1               patchwork_1.1.1            
     ## [11] microbiome_1.10.0           viridis_0.5.1              
     ## [13] viridisLite_0.3.0           maps_3.3.0                 
     ## [15] limma_3.44.3                VennDiagram_1.6.20         
     ## [17] futile.logger_1.4.3         DESeq2_1.28.1              
-    ## [19] ecodist_2.0.5               geosphere_1.5-10           
-    ## [21] ade4_1.7-15                 ShortRead_1.46.0           
-    ## [23] GenomicAlignments_1.24.0    SummarizedExperiment_1.18.1
-    ## [25] DelayedArray_0.14.0         matrixStats_0.56.0         
+    ## [19] ecodist_2.0.7               geosphere_1.5-10           
+    ## [21] ade4_1.7-16                 ShortRead_1.46.0           
+    ## [23] GenomicAlignments_1.24.0    SummarizedExperiment_1.18.2
+    ## [25] DelayedArray_0.14.1         matrixStats_0.58.0         
     ## [27] Biobase_2.48.0              Rsamtools_2.4.0            
     ## [29] GenomicRanges_1.40.0        GenomeInfoDb_1.24.2        
     ## [31] Biostrings_2.56.0           XVector_0.28.0             
     ## [33] IRanges_2.22.2              S4Vectors_0.26.1           
     ## [35] BiocParallel_1.22.0         BiocGenerics_0.34.0        
-    ## [37] magrittr_1.5                forcats_0.5.0              
-    ## [39] stringr_1.4.0               dplyr_1.0.0                
-    ## [41] purrr_0.3.4                 readr_1.3.1                
-    ## [43] tidyr_1.1.0                 tibble_3.0.3               
+    ## [37] magrittr_2.0.1              forcats_0.5.1              
+    ## [39] stringr_1.4.0               dplyr_1.0.3                
+    ## [41] purrr_0.3.4                 readr_1.4.0                
+    ## [43] tidyr_1.1.2                 tibble_3.0.6               
     ## [45] tidyverse_1.3.0             dada2_1.16.0               
-    ## [47] Rcpp_1.0.5                  betapart_1.5.1             
-    ## [49] reshape_0.8.8               FSA_0.8.30                 
-    ## [51] rmarkdown_2.3               coin_1.3-1                 
-    ## [53] survival_3.2-3              RColorBrewer_1.1-2         
-    ## [55] phyloseq_1.32.0             vegan_2.5-6                
+    ## [47] Rcpp_1.0.6                  betapart_1.5.2             
+    ## [49] reshape_0.8.8               FSA_0.8.32                 
+    ## [51] rmarkdown_2.6               coin_1.4-0                 
+    ## [53] survival_3.2-7              RColorBrewer_1.1-2         
+    ## [55] phyloseq_1.32.0             vegan_2.5-7                
     ## [57] lattice_0.20-41             permute_0.9-5              
-    ## [59] ggplot2_3.3.2               knitr_1.29                 
+    ## [59] ggplot2_3.3.3               knitr_1.31                 
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] readxl_1.3.1           backports_1.1.8        fastmatch_1.1-0       
-    ##   [4] plyr_1.8.6             igraph_1.2.5           sp_1.4-2              
-    ##   [7] splines_4.0.2          TH.data_1.0-10         digest_0.6.25         
-    ##  [10] foreach_1.5.0          htmltools_0.5.0        fansi_0.4.1           
-    ##  [13] checkmate_2.0.0        memoise_1.1.0          cluster_2.1.0         
-    ##  [16] annotate_1.66.0        modelr_0.1.8           RcppParallel_5.0.2    
-    ##  [19] sandwich_2.5-1         jpeg_0.1-8.1           colorspace_1.4-1      
-    ##  [22] blob_1.2.1             rvest_0.3.5            haven_2.3.1           
-    ##  [25] xfun_0.15              crayon_1.3.4           RCurl_1.98-1.2        
-    ##  [28] jsonlite_1.7.0         libcoin_1.0-5          genefilter_1.70.0     
-    ##  [31] zoo_1.8-8              iterators_1.0.12       ape_5.4               
-    ##  [34] glue_1.4.1             gtable_0.3.0           zlibbioc_1.34.0       
-    ##  [37] Rhdf5lib_1.10.0        abind_1.4-5            futile.options_1.0.1  
-    ##  [40] mvtnorm_1.1-1          DBI_1.1.0              htmlTable_2.0.1       
-    ##  [43] xtable_1.8-4           magic_1.5-9            gridGraphics_0.5-0    
-    ##  [46] foreign_0.8-80         bit_1.1-15.2           htmlwidgets_1.5.1     
-    ##  [49] httr_1.4.1             acepack_1.4.1          modeltools_0.2-23     
-    ##  [52] ellipsis_0.3.1         pkgconfig_2.0.3        XML_3.99-0.3          
-    ##  [55] nnet_7.3-14            dbplyr_1.4.4           locfit_1.5-9.4        
-    ##  [58] tidyselect_1.1.0       rlang_0.4.7            reshape2_1.4.4        
-    ##  [61] AnnotationDbi_1.50.0   munsell_0.5.0          cellranger_1.1.0      
-    ##  [64] tools_4.0.2            cli_2.0.2              generics_0.0.2        
-    ##  [67] RSQLite_2.2.0          evaluate_0.14          geometry_0.4.5        
-    ##  [70] biomformat_1.16.0      yaml_2.2.1             bit64_0.9-7           
-    ##  [73] fs_1.4.1               nlme_3.1-148           formatR_1.7           
-    ##  [76] xml2_1.3.2             compiler_4.0.2         rstudioapi_0.11       
-    ##  [79] png_0.1-7              reprex_0.3.0           geneplotter_1.66.0    
-    ##  [82] stringi_1.4.6          Matrix_1.2-18          multtest_2.44.0       
-    ##  [85] vctrs_0.3.2            pillar_1.4.6           lifecycle_0.2.0       
-    ##  [88] BiocManager_1.30.10    data.table_1.12.8      bitops_1.0-6          
-    ##  [91] R6_2.4.1               latticeExtra_0.6-29    hwriter_1.3.2         
-    ##  [94] gridExtra_2.3          codetools_0.2-16       lambda.r_1.2.4        
-    ##  [97] rcdd_1.2-2             MASS_7.3-51.6          assertthat_0.2.1      
-    ## [100] picante_1.8.2          rhdf5_2.32.1           withr_2.2.0           
-    ## [103] multcomp_1.4-13        GenomeInfoDbData_1.2.3 mgcv_1.8-31           
-    ## [106] hms_0.5.3              rpart_4.1-15           rvcheck_0.1.8         
-    ## [109] Rtsne_0.15             base64enc_0.1-3        lubridate_1.7.9
+    ##   [1] tidyselect_1.1.0       htmlwidgets_1.5.3      RSQLite_2.2.3         
+    ##   [4] AnnotationDbi_1.50.3   Rtsne_0.15             munsell_0.5.0         
+    ##   [7] codetools_0.2-18       withr_2.4.1            colorspace_2.0-0      
+    ##  [10] rstudioapi_0.13        geometry_0.4.5         GenomeInfoDbData_1.2.3
+    ##  [13] hwriter_1.3.2          bit64_4.0.5            rhdf5_2.32.4          
+    ##  [16] vctrs_0.3.6            generics_0.1.0         TH.data_1.0-10        
+    ##  [19] lambda.r_1.2.4         xfun_0.20              itertools_0.1-3       
+    ##  [22] R6_2.5.0               doParallel_1.0.16      locfit_1.5-9.4        
+    ##  [25] bitops_1.0-6           cachem_1.0.1           gridGraphics_0.5-1    
+    ##  [28] assertthat_0.2.1       nnet_7.3-15            multcomp_1.4-15       
+    ##  [31] gtable_0.3.0           sandwich_3.0-0         rlang_0.4.10          
+    ##  [34] genefilter_1.70.0      splines_4.0.3          checkmate_2.0.0       
+    ##  [37] BiocManager_1.30.10    yaml_2.2.1             reshape2_1.4.4        
+    ##  [40] abind_1.4-5            modelr_0.1.8           backports_1.2.1       
+    ##  [43] tools_4.0.3            ellipsis_0.3.1         biomformat_1.16.0     
+    ##  [46] plyr_1.8.6             base64enc_0.1-3        progress_1.2.2        
+    ##  [49] zlibbioc_1.34.0        RCurl_1.98-1.2         prettyunits_1.1.1     
+    ##  [52] rpart_4.1-15           zoo_1.8-8              haven_2.3.1           
+    ##  [55] cluster_2.1.0          fs_1.5.0               data.table_1.13.6     
+    ##  [58] futile.options_1.0.1   reprex_1.0.0           mvtnorm_1.1-1         
+    ##  [61] hms_1.0.0              evaluate_0.14          xtable_1.8-4          
+    ##  [64] XML_3.99-0.5           jpeg_0.1-8.1           readxl_1.3.1          
+    ##  [67] gridExtra_2.3          compiler_4.0.3         crayon_1.4.0          
+    ##  [70] htmltools_0.5.1.1      mgcv_1.8-33            geneplotter_1.66.0    
+    ##  [73] libcoin_1.0-7          RcppParallel_5.0.2     lubridate_1.7.9.2     
+    ##  [76] DBI_1.1.1              formatR_1.7            magic_1.5-9           
+    ##  [79] dbplyr_2.0.0           MASS_7.3-53            Matrix_1.3-2          
+    ##  [82] cli_2.3.0              igraph_1.2.6           pkgconfig_2.0.3       
+    ##  [85] rvcheck_0.1.8          foreign_0.8-81         sp_1.4-5              
+    ##  [88] xml2_1.3.2             foreach_1.5.1          annotate_1.66.0       
+    ##  [91] picante_1.8.2          multtest_2.44.0        rvest_0.3.6           
+    ##  [94] digest_0.6.27          rcdd_1.2-2             cellranger_1.1.0      
+    ##  [97] fastmatch_1.1-0        htmlTable_2.1.0        modeltools_0.2-23     
+    ## [100] lifecycle_0.2.0        nlme_3.1-151           jsonlite_1.7.2        
+    ## [103] Rhdf5lib_1.10.1        pillar_1.4.7           fastmap_1.1.0         
+    ## [106] httr_1.4.2             glue_1.4.2             png_0.1-7             
+    ## [109] iterators_1.0.13       bit_4.0.4              stringi_1.5.3         
+    ## [112] blob_1.2.1             latticeExtra_0.6-29    memoise_2.0.0         
+    ## [115] ape_5.4-1
 
 ### Define standard error function
 
@@ -730,22 +733,31 @@ counts), changing to proportions and then log transforming the data
 
 # plotting rarefaction curves, using step = 1000 reads
 p = ggrare(ps_OF_nz_ZM_ZEN, step = 100, label = "Sample_ID_fix", 
-    color = "Sample.Isolated.From")
+    color = "Sample.Isolated.From") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
 
 ![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-1.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 10000 reads
-p + geom_vline(xintercept = 10000, linetype = "dashed")
+p + geom_vline(xintercept = 10000, linetype = "dashed") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
+
+    ## Scale for 'colour' is already present. Adding another scale for 'colour',
+    ## which will replace the existing scale.
 
 ![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-2.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 5000 reads
-p + geom_vline(xintercept = 5000, linetype = "dashed")
+p + geom_vline(xintercept = 5000, linetype = "dashed") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
+
+    ## Scale for 'colour' is already present. Adding another scale for 'colour',
+    ## which will replace the existing scale.
 
 ![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-3.png)<!-- -->
 
@@ -754,10 +766,30 @@ p + geom_vline(xintercept = 5000, linetype = "dashed")
 # rarefaction curves
 
 # drawing cut-off line at 1000 reads
-p + geom_vline(xintercept = 1000, linetype = "dashed")
+p + geom_vline(xintercept = 1000, linetype = "dashed") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
 
+    ## Scale for 'colour' is already present. Adding another scale for 'colour',
+    ## which will replace the existing scale.
+
 ![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-4.png)<!-- -->
+
+``` r
+core_its_rare = ggrare(ps_OF_nz_ZM_ZEN, step = 100, color = "Sample.Isolated.From") + 
+    scale_color_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    scale_fill_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    guides(color = guide_legend(title = "Sample Type"), fill = guide_legend(title = "Sample Type")) + 
+    theme(text = element_text(size = 18))
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-5.png)<!-- -->
+
+``` r
+core_its_rare
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-6.png)<!-- -->
 
 ``` r
 ## Let's look at library size to see distribution of reads
@@ -769,10 +801,12 @@ df$LibrarySize <- sample_sums(ps_OF_nz_ZM_ZEN)
 df <- df[order(df$LibrarySize), ]
 df$Index <- seq(nrow(df))
 ggplot(data = df, aes(x = Index, y = LibrarySize, color = Sample.Isolated.From)) + 
-    geom_point() + geom_hline(yintercept = 5000, linetype = "dashed")
+    geom_point() + geom_hline(yintercept = 1000, linetype = "dashed") + 
+    scale_color_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    theme(text = element_text(size = 18)) + guides(color = guide_legend(title = "Sample Type"))
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-5.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-7.png)<!-- -->
 
 ``` r
 summary(df$LibrarySize)
@@ -789,52 +823,94 @@ summary(df$LibrarySize)
 hist(df$LibrarySize, breaks = 50)  #right skewed
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-6.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-8.png)<!-- -->
+
+``` r
+its_hist_lib <- ggplot(data = df, aes(x = log10(LibrarySize), 
+    fill = Sample.Isolated.From)) + geom_histogram(binwidth = 1, 
+    position = "dodge", col = "black") + scale_fill_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF")) + theme(text = element_text(size = 18)) + 
+    guides(fill = guide_legend(title = "Sample Type")) + ylab("Frequency of samples") + 
+    xlab(expression(paste("lo", g[10], " transformed read counts"))) + 
+    scale_x_continuous(breaks = c(0, 1, 2, 3, 4, 5)) + geom_vline(xintercept = 2.5, 
+    linetype = "solid", col = "#EF7F4FFF", size = 2)
+
+its_hist_lib
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-9.png)<!-- -->
 
 ``` r
 # 18S
 
 # plotting rarefaction curves, using step = 1000 reads
 p = ggrare(ps.18s_OF_nz_ZM_ZEN, step = 100, label = "Sample_ID_fix", 
-    color = "Sample.Isolated.From")
+    color = "Sample.Isolated.From") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-7.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-10.png)<!-- -->
 
 ``` r
 # drawing cut-off line at 5000 reads
-p + geom_vline(xintercept = 5000, linetype = "dashed")
+p + geom_vline(xintercept = 5000, linetype = "dashed") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-8.png)<!-- -->
+    ## Scale for 'colour' is already present. Adding another scale for 'colour',
+    ## which will replace the existing scale.
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-11.png)<!-- -->
 
 ``` r
 # 5000 reads might be a good middle ground based on
 # rarefaction curves
 
 # drawing cut-off line at 1000 reads
-p + geom_vline(xintercept = 1000, linetype = "dashed")
+p + geom_vline(xintercept = 1000, linetype = "dashed") + scale_color_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF"))
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-9.png)<!-- -->
+    ## Scale for 'colour' is already present. Adding another scale for 'colour',
+    ## which will replace the existing scale.
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-12.png)<!-- -->
+
+``` r
+core_18s_rare = ggrare(ps.18s_OF_nz_ZM_ZEN, step = 100, color = "Sample.Isolated.From") + 
+    scale_color_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    scale_fill_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    guides(color = guide_legend(title = "Sample Type"), fill = guide_legend(title = "Sample Type")) + 
+    theme(text = element_text(size = 18))
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-13.png)<!-- -->
+
+``` r
+core_18s_rare
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-14.png)<!-- -->
 
 ``` r
 ## Let's look at library size to see distribution of reads
 ## across samples
 
 ## Look at library size
-df <- as.data.frame(sample_data(ps.18s_OF_nz_ZM_ZEN))  # Put sample_data into a ggplot-friendly data.frame
-df$LibrarySize <- sample_sums(ps.18s_OF_nz_ZM_ZEN)
-df <- df[order(df$LibrarySize), ]
-df$Index <- seq(nrow(df))
-ggplot(data = df, aes(x = Index, y = LibrarySize, color = Sample.Isolated.From)) + 
-    geom_point() + geom_hline(yintercept = 1000, linetype = "dashed")
+df.18s <- as.data.frame(sample_data(ps.18s_OF_nz_ZM_ZEN))  # Put sample_data into a ggplot-friendly data.frame
+df.18s$LibrarySize <- sample_sums(ps.18s_OF_nz_ZM_ZEN)
+df.18s <- df.18s[order(df.18s$LibrarySize), ]
+df.18s$Index <- seq(nrow(df.18s))
+ggplot(data = df.18s, aes(x = Index, y = LibrarySize, color = Sample.Isolated.From)) + 
+    geom_point() + geom_hline(yintercept = 1000, linetype = "dashed") + 
+    scale_color_manual(values = c("#DCE318FF", "#1F968BFF", "#3F4788FF")) + 
+    theme(text = element_text(size = 18)) + guides(color = guide_legend(title = "Sample Type"))
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-10.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-15.png)<!-- -->
 
 ``` r
-summary(df$LibrarySize)
+summary(df.18s$LibrarySize)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -845,10 +921,37 @@ summary(df$LibrarySize)
 # reads if absolutely needed? And try to use proportions /
 # unrarefied data where can
 
-hist(df$LibrarySize, breaks = 50)  #right skewed
+hist(df.18s$LibrarySize, breaks = 50)  #right skewed
 ```
 
-![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-11.png)<!-- -->
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-16.png)<!-- -->
+
+``` r
+hist_18s_lib <- ggplot(data = df.18s, aes(x = log10(LibrarySize), 
+    fill = Sample.Isolated.From)) + geom_histogram(binwidth = 1, 
+    position = "dodge", col = "black") + scale_fill_manual(values = c("#DCE318FF", 
+    "#1F968BFF", "#3F4788FF")) + theme(text = element_text(size = 18)) + 
+    guides(fill = guide_legend(title = "Sample Type")) + ylab("Frequency of samples") + 
+    xlab(expression(paste("lo", g[10], " transformed read counts"))) + 
+    scale_x_continuous(breaks = c(0, 1, 2, 3, 4, 5)) + geom_vline(xintercept = 1.5, 
+    linetype = "solid", col = "#EF7F4FFF", size = 2)
+
+hist_18s_lib
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-17.png)<!-- -->
+
+``` r
+(core_its_rare + core_18s_rare)/(its_hist_lib + hist_18s_lib) + 
+    plot_annotation(tag_levels = "A") + plot_layout(guides = "collect")
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/rare_plot-18.png)<!-- -->
+
+``` r
+# ggsave(filename = 'rare_lib_size.pdf', plot = last_plot(),
+# device = 'pdf', width = 14, height = 10, dpi = 300)
+```
 
 ### Subsetting & log transformations, calculating relative abundance
 
@@ -1426,17 +1529,26 @@ its_hell_plot_oc + hell_plot_18s_oc + plot_annotation(tag_levels = "A") +
 # last_plot(), device = 'pdf', width = 12, height = 6, dpi =
 # 300)
 
-# sites and ocean
-its_hell_plot_site + hell_plot_18s_site + its_hell_plot_oc + 
-    hell_plot_18s_oc + plot_annotation(tag_levels = "A") + plot_layout(guides = "collect")
+# sites and ocean its_hell_plot_site + hell_plot_18s_site +
+# its_hell_plot_oc + hell_plot_18s_oc +
+# plot_annotation(tag_levels = 'A') + plot_layout(guides =
+# 'collect')
+
+# ggsave(filename = 'Ordination.Hell.Both.OCandsite.pdf',
+# plot = last_plot(), device = 'pdf', width = 12, height =
+# 10, dpi = 300)
+
+# tissues and ocean
+its_hell_plot_st + hell_plot_18s_st + its_hell_plot_oc + hell_plot_18s_oc + 
+    plot_annotation(tag_levels = "A") + plot_layout(guides = "collect")
 ```
 
 ![](RMarkdown_GlobalAmplicon_files/figure-gfm/ord_ocean-2.png)<!-- -->
 
 ``` r
-# ggsave(filename = 'Ordination.Hell.Both.OCandsite.pdf',
-# plot = last_plot(), device = 'pdf', width = 12, height =
-# 10, dpi = 300)
+# ggsave(filename = 'Ordination.Hell.Both.OCandST.pdf', plot
+# = last_plot(), device = 'pdf', width = 12, height = 10, dpi
+# = 300)
 ```
 
 ### Stats on community structure
@@ -2381,7 +2493,7 @@ avgs_alpha_its <- summarise(grouped_alpha_its, mean_S = mean(Shannon),
     sd_S = sd(Shannon), se_S = se(Shannon))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From'. You can override using the `.groups` argument.
 
 ``` r
 alpha_its_shan = ggplot(avgs_alpha_its, aes(x = Site, y = (mean_S), 
@@ -2600,7 +2712,7 @@ avgs_alpha_18s <- summarise(grouped_alpha_18s, mean_S = mean(Shannon),
     sd_S = sd(Shannon), se_S = se(Shannon))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From'. You can override using the `.groups` argument.
 
 ``` r
 alpha_18s_shan = ggplot(avgs_alpha_18s, aes(x = Site, y = (mean_S), 
@@ -2653,6 +2765,20 @@ alpha_its_shan/alpha_18s_shan + plot_annotation(tag_levels = "A")
 ``` r
 ggsave(filename = "AlphaBar.Site.shannon.pdf", plot = last_plot(), 
     device = "pdf", width = 12, height = 12, dpi = 300)
+
+
+# combined
+
+its_alpha_boxplot + alpha_its_shan + alpha_18s_box + alpha_18s_shan + 
+    plot_layout(widths = c(1, 2)) + plot_annotation(tag_levels = "A")
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/alpha_div-5.png)<!-- -->
+
+``` r
+# ggsave(filename = 'AlphaBar.Combo.shannon.pdf', plot =
+# last_plot(), device = 'pdf', width = 18, height = 12, dpi =
+# 300)
 ```
 
 # Investigating the mean proportions of taxa across sample types
@@ -2684,7 +2810,7 @@ avgs_g_its <- summarise(grouped_g_its, mean = 100 * mean(Abundance),
     sd = 100 * sd(Abundance), se = 100 * se(Abundance))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Order', 'Class' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Order', 'Class'. You can override using the `.groups` argument.
 
 ``` r
 avgs_g_its <- avgs_g_its %>% mutate(Order.v2 = ifelse(Order == 
@@ -2747,7 +2873,7 @@ avgs_g_18s <- summarise(grouped_g_18s, mean = 100 * mean(Abundance),
     sd = 100 * sd(Abundance), se = 100 * se(Abundance))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Order', 'Class' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Order', 'Class'. You can override using the `.groups` argument.
 
 ``` r
 avgs_g_18s <- avgs_g_18s %>% mutate(Order.v2 = ifelse(Order == 
@@ -3198,7 +3324,12 @@ for (i in contrasts) {
 
 # LR = no sig results, had to remove from loop
 
+plot.list$LS + plot.list$RS  #+ plot.list$LR
+```
 
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/deseq-2.png)<!-- -->
+
+``` r
 # standardize colors
 ls.18s.plot <- plot.list$LS + scale_color_manual(values = c("#F0E442", 
     "#56B4E9"))
@@ -3331,6 +3462,7 @@ ps_OF_nz_ZM_ZEN.hell.LEAF.pac <- subset_samples(ps_OF_nz_ZM_ZEN.hell.Pac,
 geo.l.pac = data.frame(ps_OF_nz_ZM_ZEN.LEAF.pac@sam_data$Longitude.Value.must.be.in.decimal.format.with.values.between..180.and.180., 
     ps_OF_nz_ZM_ZEN.LEAF.pac@sam_data$Latitude.Value.must.be.in.decimal.format.with.values.between..90.and.90.)
 
+
 # defining geographic distance between two locations -
 # haversine distance (accounts for spherical earth)
 d.geo.l.pac = distm(geo.l.pac, fun = distHaversine)
@@ -3397,7 +3529,46 @@ mantel.test.ZM.geo.leaf.pac  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0352 0.0459 0.0556 0.0681 
+    ## 0.0352 0.0459 0.0555 0.0679 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.pac.matrix <- as.matrix(dist.geo.leaf.pac)
+comm.dist.leaf.pac.matrix <- as.matrix(comm.dist.leaf.pac)
+
+# change all 0s to NAs
+dist.geo.leaf.pac.matrix[dist.geo.leaf.pac.matrix == 0] <- NA
+comm.dist.leaf.pac.matrix[is.na(dist.geo.leaf.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.leaf.pac.nonzero <- as.dist(dist.geo.leaf.pac.matrix)
+comm.dist.leaf.pac.nonzero <- as.dist(comm.dist.leaf.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.pac.nonzero = vegan::mantel(comm.dist.leaf.pac.nonzero, 
+    dist.geo.leaf.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.pac.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.pac.nonzero, ydis = dist.geo.leaf.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.06988 
+    ##       Significance: 0.0291 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0457 0.0602 0.0724 0.0868 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3437,7 +3608,46 @@ mantel.test.ZM.geo.hell.leaf.pac  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0354 0.0467 0.0557 0.0674 
+    ## 0.0348 0.0467 0.0574 0.0700 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.pac.matrix <- as.matrix(dist.geo.leaf.pac)
+comm.dist.hell.leaf.pac.matrix <- as.matrix(comm.dist.hell.leaf.pac)
+
+# change all 0s to NAs
+dist.geo.leaf.pac.matrix[dist.geo.leaf.pac.matrix == 0] <- NA
+comm.dist.hell.leaf.pac.matrix[is.na(dist.geo.leaf.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.leaf.pac.nonzero <- as.dist(dist.geo.leaf.pac.matrix)
+comm.dist.hell.leaf.pac.nonzero <- as.dist(comm.dist.hell.leaf.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.leaf.nonzero = vegan::mantel(comm.dist.hell.leaf.pac.nonzero, 
+    dist.geo.leaf.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.leaf.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.leaf.pac.nonzero, ydis = dist.geo.leaf.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.06713 
+    ##       Significance: 0.0376 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0462 0.0617 0.0746 0.0882 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3468,7 +3678,7 @@ dist_MRM.bc.leaf.pac
 
     ## $coef
     ##                   comm.dist.leaf.pac       pval
-    ## Int                     9.542995e-01 0.72877288
+    ## Int                     9.542995e-01 0.72967297
     ## dist.geo.leaf.pac       3.523278e-09 0.00010001
     ## 
     ## $r.squared
@@ -3572,11 +3782,50 @@ mantel.test.ZM.geo.leaf.Atl  #still sig, higher r stat
     ## vegan::mantel(xdis = comm.dist.leaf.Atl, ydis = dist.geo.leaf.Atl,      method = "spearman", permutations = 9999, na.rm = TRUE) 
     ## 
     ## Mantel statistic r: 0.1139 
-    ##       Significance: 1e-04 
+    ##       Significance: 2e-04 
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0295 0.0397 0.0485 0.0587 
+    ## 0.0295 0.0393 0.0491 0.0607 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.Atl.matrix <- as.matrix(dist.geo.leaf.Atl)
+comm.dist.leaf.Atl.matrix <- as.matrix(comm.dist.leaf.Atl)
+
+# change all 0s to NAs
+dist.geo.leaf.Atl.matrix[dist.geo.leaf.Atl.matrix == 0] <- NA
+comm.dist.leaf.Atl.matrix[is.na(dist.geo.leaf.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.leaf.Atl.nonzero <- as.dist(dist.geo.leaf.Atl.matrix)
+comm.dist.leaf.Atl.nonzero <- as.dist(comm.dist.leaf.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.Atl.nonzero = vegan::mantel(comm.dist.leaf.Atl.nonzero, 
+    dist.geo.leaf.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.Atl.nonzero, ydis = dist.geo.leaf.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.04397 
+    ##       Significance: 0.9544 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0358 0.0476 0.0579 0.0709 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3617,7 +3866,46 @@ mantel.test.ZM.geo.hell.leaf.Atl  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0296 0.0390 0.0482 0.0582 
+    ## 0.0283 0.0372 0.0464 0.0556 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.Atl.matrix <- as.matrix(dist.geo.leaf.Atl)
+comm.dist.hell.leaf.Atl.matrix <- as.matrix(comm.dist.hell.leaf.Atl)
+
+# change all 0s to NAs
+dist.geo.leaf.Atl.matrix[dist.geo.leaf.Atl.matrix == 0] <- NA
+comm.dist.hell.leaf.Atl.matrix[is.na(dist.geo.leaf.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.leaf.Atl.nonzero <- as.dist(dist.geo.leaf.Atl.matrix)
+comm.dist.hell.leaf.Atl.nonzero <- as.dist(comm.dist.hell.leaf.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.leaf.Atl.nonzero = vegan::mantel(comm.dist.hell.leaf.Atl.nonzero, 
+    dist.geo.leaf.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.leaf.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.leaf.Atl.nonzero, ydis = dist.geo.leaf.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.04398 
+    ##       Significance: 0.9527 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0359 0.0466 0.0567 0.0678 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3648,7 +3936,7 @@ dist_MRM.bc.leaf.Atl
 
     ## $coef
     ##                   comm.dist.leaf.Atl       pval
-    ## Int                     9.415525e-01 0.92689269
+    ## Int                     9.415525e-01 0.92699270
     ## dist.geo.leaf.Atl       7.601904e-09 0.00010001
     ## 
     ## $r.squared
@@ -3667,7 +3955,7 @@ dist_MRM.hel.leaf.Atl
 
     ## $coef
     ##                   comm.dist.hell.leaf.Atl       pval
-    ## Int                           1.31266e+00 0.98119812
+    ## Int                           1.31266e+00 0.98139814
     ## dist.geo.leaf.Atl             1.21947e-08 0.00010001
     ## 
     ## $r.squared
@@ -3756,7 +4044,46 @@ mantel.test.ZM.geo.root.pac  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0357 0.0465 0.0570 0.0680 
+    ## 0.0357 0.0477 0.0587 0.0700 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.root.pac.matrix <- as.matrix(dist.geo.root.pac)
+comm.dist.root.pac.matrix <- as.matrix(comm.dist.root.pac)
+
+# change all 0s to NAs
+dist.geo.root.pac.matrix[dist.geo.root.pac.matrix == 0] <- NA
+comm.dist.root.pac.matrix[is.na(dist.geo.root.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.root.pac.nonzero <- as.dist(dist.geo.root.pac.matrix)
+comm.dist.root.pac.nonzero <- as.dist(comm.dist.root.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.pac.nonzero = vegan::mantel(comm.dist.root.pac.nonzero, 
+    dist.geo.root.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.pac.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.pac.nonzero, ydis = dist.geo.root.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.05292 
+    ##       Significance: 0.0785 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0474 0.0615 0.0735 0.0911 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3796,7 +4123,46 @@ mantel.test.ZM.geo.hell.root.pac  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0351 0.0457 0.0553 0.0664 
+    ## 0.0346 0.0460 0.0563 0.0679 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.root.pac.matrix <- as.matrix(dist.geo.root.pac)
+comm.dist.hell.root.pac.matrix <- as.matrix(comm.dist.hell.root.pac)
+
+# change all 0s to NAs
+dist.geo.root.pac.matrix[dist.geo.root.pac.matrix == 0] <- NA
+comm.dist.hell.root.pac.matrix[is.na(dist.geo.root.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.root.pac.nonzero <- as.dist(dist.geo.root.pac.matrix)
+comm.dist.hell.root.pac.nonzero <- as.dist(comm.dist.hell.root.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.root.pac.nonzero = vegan::mantel(comm.dist.hell.root.pac.nonzero, 
+    dist.geo.root.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.root.pac.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.root.pac.nonzero, ydis = dist.geo.root.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.03086 
+    ##       Significance: 0.2007 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0480 0.0628 0.0739 0.0903 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3822,7 +4188,7 @@ dist_MRM.bc.root.pac
 
     ## $coef
     ##                   comm.dist.root.pac       pval
-    ## Int                     9.605202e-01 0.96929693
+    ## Int                     9.605202e-01 0.97089709
     ## dist.geo.root.pac       3.421969e-09 0.00010001
     ## 
     ## $r.squared
@@ -3930,7 +4296,46 @@ mantel.test.ZM.geo.root.Atl  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0295 0.0399 0.0482 0.0577 
+    ## 0.0302 0.0402 0.0494 0.0595 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.root.Atl.matrix <- as.matrix(dist.geo.root.Atl)
+comm.dist.root.Atl.matrix <- as.matrix(comm.dist.root.Atl)
+
+# change all 0s to NAs
+dist.geo.root.Atl.matrix[dist.geo.root.Atl.matrix == 0] <- NA
+comm.dist.root.Atl.matrix[is.na(dist.geo.root.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.root.Atl.nonzero <- as.dist(dist.geo.root.Atl.matrix)
+comm.dist.root.Atl.nonzero <- as.dist(comm.dist.root.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.Atl.nonzero = vegan::mantel(comm.dist.root.Atl.nonzero, 
+    dist.geo.root.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.Atl.nonzero, ydis = dist.geo.root.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.01429 
+    ##       Significance: 0.3019 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0384 0.0497 0.0593 0.0726 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3970,7 +4375,46 @@ mantel.test.ZM.geo.hell.root.Atl  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0287 0.0384 0.0465 0.0577 
+    ## 0.0294 0.0385 0.0471 0.0578 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.root.Atl.matrix <- as.matrix(dist.geo.root.Atl)
+comm.dist.hell.root.Atl.matrix <- as.matrix(comm.dist.hell.root.Atl)
+
+# change all 0s to NAs
+dist.geo.root.Atl.matrix[dist.geo.root.Atl.matrix == 0] <- NA
+comm.dist.hell.root.Atl.matrix[is.na(dist.geo.root.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.root.Atl.nonzero <- as.dist(dist.geo.root.Atl.matrix)
+comm.dist.hell.root.Atl.nonzero <- as.dist(comm.dist.hell.root.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.root.Atl.nonzero = vegan::mantel(comm.dist.hell.root.Atl.nonzero, 
+    dist.geo.root.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.root.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.root.Atl.nonzero, ydis = dist.geo.root.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.007462 
+    ##       Significance: 0.3819 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0359 0.0474 0.0559 0.0681 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -3996,7 +4440,7 @@ dist_MRM.bc.root.Atl
 
     ## $coef
     ##                   comm.dist.root.Atl       pval
-    ## Int                     9.476082e-01 0.79147915
+    ## Int                     9.476082e-01 0.78787879
     ## dist.geo.root.Atl       6.997543e-09 0.00010001
     ## 
     ## $r.squared
@@ -4015,7 +4459,7 @@ dist_MRM.hel.root.Atl
 
     ## $coef
     ##                   comm.dist.hell.root.Atl       pval
-    ## Int                          1.321914e+00 0.64246425
+    ## Int                          1.321914e+00 0.64226423
     ## dist.geo.root.Atl            1.224126e-08 0.00010001
     ## 
     ## $r.squared
@@ -4104,7 +4548,46 @@ mantel.test.ZM.geo.sed.pac  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0407 0.0547 0.0676 0.0834 
+    ## 0.0418 0.0547 0.0665 0.0827 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.sed.pac.matrix <- as.matrix(dist.geo.sed.pac)
+comm.dist.sed.pac.matrix <- as.matrix(comm.dist.sed.pac)
+
+# change all 0s to NAs
+dist.geo.sed.pac.matrix[dist.geo.sed.pac.matrix == 0] <- NA
+comm.dist.sed.pac.matrix[is.na(dist.geo.sed.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.sed.pac.nonzero <- as.dist(dist.geo.sed.pac.matrix)
+comm.dist.sed.pac.nonzero <- as.dist(comm.dist.sed.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.pac.nonzero = vegan::mantel(comm.dist.sed.pac.nonzero, 
+    dist.geo.sed.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.pac.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.pac.nonzero, ydis = dist.geo.sed.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.01881 
+    ##       Significance: 0.7012 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0470 0.0604 0.0733 0.0865 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4140,11 +4623,50 @@ mantel.test.ZM.geo.hell.sed.pac  #still sig, higher r stat
     ## vegan::mantel(xdis = comm.dist.hell.sed.pac, ydis = dist.geo.sed.pac,      method = "spearman", permutations = 9999, na.rm = TRUE) 
     ## 
     ## Mantel statistic r: -0.03682 
-    ##       Significance: 0.822 
+    ##       Significance: 0.8238 
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0507 0.0648 0.0762 0.0896 
+    ## 0.0501 0.0627 0.0738 0.0873 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.sed.pac.matrix <- as.matrix(dist.geo.sed.pac)
+comm.dist.hell.sed.pac.matrix <- as.matrix(comm.dist.hell.sed.pac)
+
+# change all 0s to NAs
+dist.geo.sed.pac.matrix[dist.geo.sed.pac.matrix == 0] <- NA
+comm.dist.hell.sed.pac.matrix[is.na(dist.geo.sed.pac.matrix)] <- NA
+
+# change back to distances
+dist.geo.sed.pac.nonzero <- as.dist(dist.geo.sed.pac.matrix)
+comm.dist.hell.sed.pac.nonzero <- as.dist(comm.dist.hell.sed.pac.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.sed.pac.nonzero = vegan::mantel(comm.dist.hell.sed.pac.nonzero, 
+    dist.geo.sed.pac.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.sed.pac.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.sed.pac.nonzero, ydis = dist.geo.sed.pac.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.1093 
+    ##       Significance: 0.9788 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0616 0.0786 0.0938 0.1084 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4170,7 +4692,7 @@ dist_MRM.bc.sed.pac
 
     ## $coef
     ##                  comm.dist.sed.pac       pval
-    ## Int                   9.885806e-01 0.12241224
+    ## Int                   9.885806e-01 0.12281228
     ## dist.geo.sed.pac      1.652654e-09 0.00010001
     ## 
     ## $r.squared
@@ -4189,7 +4711,7 @@ dist_MRM.hel.sed.pac
 
     ## $coef
     ##                  comm.dist.hell.sed.pac       pval
-    ## Int                        1.395563e+00 0.29992999
+    ## Int                        1.395563e+00 0.30283028
     ## dist.geo.sed.pac           2.554350e-09 0.00010001
     ## 
     ## $r.squared
@@ -4278,7 +4800,46 @@ mantel.test.ZM.geo.sed.Atl  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0465 0.0619 0.0756 0.0932 
+    ## 0.0470 0.0629 0.0778 0.0930 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.sed.Atl.matrix <- as.matrix(dist.geo.sed.Atl)
+comm.dist.sed.Atl.matrix <- as.matrix(comm.dist.sed.Atl)
+
+# change all 0s to NAs
+dist.geo.sed.Atl.matrix[dist.geo.sed.Atl.matrix == 0] <- NA
+comm.dist.sed.Atl.matrix[is.na(dist.geo.sed.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.sed.Atl.nonzero <- as.dist(dist.geo.sed.Atl.matrix)
+comm.dist.sed.Atl.nonzero <- as.dist(comm.dist.sed.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.Atl.nonzero = vegan::mantel(comm.dist.sed.Atl.nonzero, 
+    dist.geo.sed.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.Atl.nonzero, ydis = dist.geo.sed.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.171 
+    ##       Significance: 1e-04 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0536 0.0707 0.0851 0.1017 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4318,7 +4879,46 @@ mantel.test.ZM.geo.hell.sed.Atl  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0525 0.0664 0.0771 0.0914 
+    ## 0.0516 0.0639 0.0759 0.0896 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.sed.Atl.matrix <- as.matrix(dist.geo.sed.Atl)
+comm.dist.hell.sed.Atl.matrix <- as.matrix(comm.dist.hell.sed.Atl)
+
+# change all 0s to NAs
+dist.geo.sed.Atl.matrix[dist.geo.sed.Atl.matrix == 0] <- NA
+comm.dist.hell.sed.Atl.matrix[is.na(dist.geo.sed.Atl.matrix)] <- NA
+
+# change back to distances
+dist.geo.sed.Atl.nonzero <- as.dist(dist.geo.sed.Atl.matrix)
+comm.dist.hell.sed.Atl.nonzero <- as.dist(comm.dist.hell.sed.Atl.matrix)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.hell.sed.Atl.nonzero = vegan::mantel(comm.dist.hell.sed.Atl.nonzero, 
+    dist.geo.sed.Atl.nonzero, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.hell.sed.Atl.nonzero
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.hell.sed.Atl.nonzero, ydis = dist.geo.sed.Atl.nonzero,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.1283 
+    ##       Significance: 0.0034 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0645 0.0808 0.0963 0.1135 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4467,7 +5067,47 @@ mantel.test.ZM.geo.leaf.pac.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0612 0.0806 0.0982 0.1195 
+    ## 0.0610 0.0825 0.1012 0.1216 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.pac.matrix.18s <- as.matrix(dist.geo.leaf.pac.18s)
+comm.dist.leaf.pac.matrix.18s <- as.matrix(comm.dist.leaf.pac.18s)
+
+# change all 0s to NAs
+dist.geo.leaf.pac.matrix.18s[dist.geo.leaf.pac.matrix.18s == 
+    0] <- NA
+comm.dist.leaf.pac.matrix.18s[is.na(dist.geo.leaf.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.leaf.pac.nonzero.18s <- as.dist(dist.geo.leaf.pac.matrix.18s)
+comm.dist.leaf.pac.nonzero.18s <- as.dist(comm.dist.leaf.pac.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.pac.nonzero.18s = vegan::mantel(comm.dist.leaf.pac.nonzero.18s, 
+    dist.geo.leaf.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.pac.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.pac.nonzero.18s, ydis = dist.geo.leaf.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.1438 
+    ##       Significance: 0.0034 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0699 0.0889 0.1069 0.1257 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4507,7 +5147,7 @@ mantel.test.ZM.geo.hell.leaf.pac.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0687 0.0894 0.1065 0.1291 
+    ## 0.0703 0.0889 0.1060 0.1264 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4525,6 +5165,47 @@ plot(mantel.test.ZM.geo.hell.leaf.corr.pac.18s)
 # x axis in km black squares are sig values, white are not
 # sig
 
+
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.pac.matrix.18s <- as.matrix(dist.geo.leaf.pac.18s)
+comm.dist.leaf.pac.matrix.18s.hell <- as.matrix(comm.dist.hell.leaf.pac.18s)
+
+# change all 0s to NAs
+dist.geo.leaf.pac.matrix.18s[dist.geo.leaf.pac.matrix.18s == 
+    0] <- NA
+comm.dist.leaf.pac.matrix.18s.hell[is.na(dist.geo.leaf.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.leaf.pac.nonzero.18s <- as.dist(dist.geo.leaf.pac.matrix.18s)
+comm.dist.leaf.pac.nonzero.18s.hell <- as.dist(comm.dist.leaf.pac.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.pac.nonzero.18s.hell = vegan::mantel(comm.dist.leaf.pac.nonzero.18s.hell, 
+    dist.geo.leaf.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.pac.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.pac.nonzero.18s.hell, ydis = dist.geo.leaf.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.158 
+    ##       Significance: 0.0037 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0809 0.1015 0.1176 0.1390 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
 # Multiple Regression on distance matrices
 dist_MRM.bc.leaf.pac.18s <- MRM(comm.dist.leaf.pac.18s ~ dist.geo.leaf.pac.18s, 
     nperm = 9999)
@@ -4641,7 +5322,47 @@ mantel.test.ZM.geo.leaf.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0366 0.0492 0.0615 0.0757 
+    ## 0.0368 0.0500 0.0624 0.0769 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# what happens if we remove all instances from same location
+# (e.g. geographic distance = 0)?
+
+# first transform to matrices to edit
+dist.geo.leaf.atl.matrix.18s <- as.matrix(dist.geo.leaf.Atl.18s)
+comm.dist.leaf.atl.matrix.18s <- as.matrix(comm.dist.leaf.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.leaf.atl.matrix.18s[dist.geo.leaf.atl.matrix.18s == 
+    0] <- NA
+comm.dist.leaf.atl.matrix.18s[is.na(dist.geo.leaf.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.leaf.atl.nonzero.18s <- as.dist(dist.geo.leaf.atl.matrix.18s)
+comm.dist.leaf.atl.nonzero.18s <- as.dist(comm.dist.leaf.atl.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.atl.nonzero.18s = vegan::mantel(comm.dist.leaf.atl.nonzero.18s, 
+    dist.geo.leaf.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.atl.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.atl.nonzero.18s, ydis = dist.geo.leaf.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.0418 
+    ##       Significance: 0.1351 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0497 0.0659 0.0806 0.0996 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4681,7 +5402,44 @@ mantel.test.ZM.geo.hell.leaf.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0363 0.0486 0.0608 0.0763 
+    ## 0.0362 0.0495 0.0614 0.0761 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.leaf.atl.matrix.18s <- as.matrix(dist.geo.leaf.Atl.18s)
+comm.dist.leaf.atl.matrix.18s.hell <- as.matrix(comm.dist.hell.leaf.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.leaf.atl.matrix.18s[dist.geo.leaf.atl.matrix.18s == 
+    0] <- NA
+comm.dist.leaf.atl.matrix.18s.hell[is.na(dist.geo.leaf.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.leaf.atl.nonzero.18s <- as.dist(dist.geo.leaf.atl.matrix.18s)
+comm.dist.leaf.atl.nonzero.18s.hell <- as.dist(comm.dist.leaf.atl.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.leaf.atl.nonzero.18s.hell = vegan::mantel(comm.dist.leaf.atl.nonzero.18s.hell, 
+    dist.geo.leaf.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.leaf.atl.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.leaf.atl.nonzero.18s.hell, ydis = dist.geo.leaf.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.04947 
+    ##       Significance: 0.0967 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0489 0.0645 0.0786 0.0961 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4811,11 +5569,48 @@ mantel.test.ZM.geo.root.pac.18s  #still sig, higher r stat
     ## vegan::mantel(xdis = comm.dist.root.pac.18s, ydis = dist.geo.root.pac.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
     ## 
     ## Mantel statistic r: 0.06958 
-    ##       Significance: 0.0325 
+    ##       Significance: 0.03 
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0455 0.0609 0.0738 0.0922 
+    ## 0.0444 0.0596 0.0735 0.0918 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.root.pac.matrix.18s <- as.matrix(dist.geo.root.pac.18s)
+comm.dist.root.pac.matrix.18s <- as.matrix(comm.dist.root.pac.18s)
+
+# change all 0s to NAs
+dist.geo.root.pac.matrix.18s[dist.geo.root.pac.matrix.18s == 
+    0] <- NA
+comm.dist.root.pac.matrix.18s[is.na(dist.geo.root.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.root.pac.nonzero.18s <- as.dist(dist.geo.root.pac.matrix.18s)
+comm.dist.root.pac.nonzero.18s <- as.dist(comm.dist.root.pac.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.pac.nonzero.18s = vegan::mantel(comm.dist.root.pac.nonzero.18s, 
+    dist.geo.root.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.pac.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.pac.nonzero.18s, ydis = dist.geo.root.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.1035 
+    ##       Significance: 0.9896 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0650 0.0854 0.1024 0.1223 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4851,11 +5646,48 @@ mantel.test.ZM.geo.hell.root.pac.18s  #still sig, higher r stat
     ## vegan::mantel(xdis = comm.dist.hell.root.pac.18s, ydis = dist.geo.root.pac.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
     ## 
     ## Mantel statistic r: 0.09003 
-    ##       Significance: 0.0093 
+    ##       Significance: 0.0094 
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0440 0.0604 0.0728 0.0887 
+    ## 0.0451 0.0598 0.0732 0.0887 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.root.pac.matrix.18s <- as.matrix(dist.geo.root.pac.18s)
+comm.dist.root.pac.matrix.18s.hell <- as.matrix(comm.dist.hell.root.pac.18s)
+
+# change all 0s to NAs
+dist.geo.root.pac.matrix.18s[dist.geo.root.pac.matrix.18s == 
+    0] <- NA
+comm.dist.root.pac.matrix.18s.hell[is.na(dist.geo.root.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.root.pac.nonzero.18s <- as.dist(dist.geo.root.pac.matrix.18s)
+comm.dist.root.pac.nonzero.18s.hell <- as.dist(comm.dist.root.pac.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.pac.nonzero.18s.hell = vegan::mantel(comm.dist.root.pac.nonzero.18s.hell, 
+    dist.geo.root.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.pac.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.pac.nonzero.18s.hell, ydis = dist.geo.root.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.06377 
+    ##       Significance: 0.9129 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0615 0.0801 0.0970 0.1227 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -4881,16 +5713,16 @@ dist_MRM.bc.root.pac.18s
 
     ## $coef
     ##                       comm.dist.root.pac.18s       pval
-    ## Int                             8.899429e-01 0.98779878
-    ## dist.geo.root.pac.18s           3.875706e-09 0.01440144
+    ## Int                             8.899429e-01 0.98569857
+    ## dist.geo.root.pac.18s           3.875706e-09 0.01620162
     ## 
     ## $r.squared
     ##          R2        pval 
-    ## 0.005450725 0.014401440 
+    ## 0.005450725 0.016201620 
     ## 
     ## $F.test
     ##           F      F.pval 
-    ## 15.60874484  0.01440144
+    ## 15.60874484  0.01620162
 
 ``` r
 dist_MRM.hel.root.pac.18s <- MRM(comm.dist.hell.root.pac.18s ~ 
@@ -4900,16 +5732,16 @@ dist_MRM.hel.root.pac.18s
 
     ## $coef
     ##                       comm.dist.hell.root.pac.18s       pval
-    ## Int                                  1.238642e+00 0.99619962
-    ## dist.geo.root.pac.18s                7.543030e-09 0.00390039
+    ## Int                                  1.238642e+00 0.99599960
+    ## dist.geo.root.pac.18s                7.543030e-09 0.00410041
     ## 
     ## $r.squared
     ##          R2        pval 
-    ## 0.008982417 0.003900390 
+    ## 0.008982417 0.004100410 
     ## 
     ## $F.test
     ##           F      F.pval 
-    ## 25.81379316  0.00390039
+    ## 25.81379316  0.00410041
 
 ``` r
 ## Altantic
@@ -4989,7 +5821,44 @@ mantel.test.ZM.geo.root.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0395 0.0538 0.0672 0.0814 
+    ## 0.0416 0.0561 0.0677 0.0842 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.root.atl.matrix.18s <- as.matrix(dist.geo.root.Atl.18s)
+comm.dist.root.atl.matrix.18s <- as.matrix(comm.dist.root.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.root.atl.matrix.18s[dist.geo.root.atl.matrix.18s == 
+    0] <- NA
+comm.dist.root.atl.matrix.18s[is.na(dist.geo.root.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.root.atl.nonzero.18s <- as.dist(dist.geo.root.atl.matrix.18s)
+comm.dist.root.atl.nonzero.18s <- as.dist(comm.dist.root.atl.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.atl.nonzero.18s = vegan::mantel(comm.dist.root.atl.nonzero.18s, 
+    dist.geo.root.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.atl.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.atl.nonzero.18s, ydis = dist.geo.root.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.3441 
+    ##       Significance: 1e-04 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0433 0.0554 0.0661 0.0792 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5029,7 +5898,44 @@ mantel.test.ZM.geo.hell.root.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0392 0.0513 0.0636 0.0777 
+    ## 0.0395 0.0520 0.0642 0.0794 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.root.atl.matrix.18s <- as.matrix(dist.geo.root.Atl.18s)
+comm.dist.root.atl.matrix.18s.hell <- as.matrix(comm.dist.hell.root.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.root.atl.matrix.18s[dist.geo.root.atl.matrix.18s == 
+    0] <- NA
+comm.dist.root.atl.matrix.18s.hell[is.na(dist.geo.root.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.root.atl.nonzero.18s <- as.dist(dist.geo.root.atl.matrix.18s)
+comm.dist.root.atl.nonzero.18s.hell <- as.dist(comm.dist.root.atl.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.root.atl.nonzero.18s.hell = vegan::mantel(comm.dist.root.atl.nonzero.18s.hell, 
+    dist.geo.root.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.root.atl.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.root.atl.nonzero.18s.hell, ydis = dist.geo.root.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.3101 
+    ##       Significance: 1e-04 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0430 0.0549 0.0656 0.0791 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5074,7 +5980,7 @@ dist_MRM.hel.root.Atl.18s
 
     ## $coef
     ##                       comm.dist.hell.root.Atl.18s       pval
-    ## Int                                  1.238696e+00 0.08730873
+    ## Int                                  1.238696e+00 0.08830883
     ## dist.geo.root.Atl.18s                2.815749e-08 0.00010001
     ## 
     ## $r.squared
@@ -5163,7 +6069,43 @@ mantel.test.ZM.geo.sed.pac.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0449 0.0592 0.0738 0.0893 
+    ## 0.0439 0.0584 0.0727 0.0895 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.sed.pac.matrix.18s <- as.matrix(dist.geo.sed.pac.18s)
+comm.dist.sed.pac.matrix.18s <- as.matrix(comm.dist.sed.pac.18s)
+
+# change all 0s to NAs
+dist.geo.sed.pac.matrix.18s[dist.geo.sed.pac.matrix.18s == 0] <- NA
+comm.dist.sed.pac.matrix.18s[is.na(dist.geo.sed.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.sed.pac.nonzero.18s <- as.dist(dist.geo.sed.pac.matrix.18s)
+comm.dist.sed.pac.nonzero.18s <- as.dist(comm.dist.sed.pac.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.pac.nonzero.18s = vegan::mantel(comm.dist.sed.pac.nonzero.18s, 
+    dist.geo.sed.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.pac.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.pac.nonzero.18s, ydis = dist.geo.sed.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.1122 
+    ##       Significance: 0.9983 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0494 0.0629 0.0744 0.0876 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5203,7 +6145,43 @@ mantel.test.ZM.geo.hell.sed.pac.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0555 0.0702 0.0832 0.0988 
+    ## 0.0544 0.0698 0.0832 0.0971 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.sed.pac.matrix.18s <- as.matrix(dist.geo.sed.pac.18s)
+comm.dist.sed.pac.matrix.18s.hell <- as.matrix(comm.dist.hell.sed.pac.18s)
+
+# change all 0s to NAs
+dist.geo.sed.pac.matrix.18s[dist.geo.sed.pac.matrix.18s == 0] <- NA
+comm.dist.sed.pac.matrix.18s.hell[is.na(dist.geo.sed.pac.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.sed.pac.nonzero.18s <- as.dist(dist.geo.sed.pac.matrix.18s)
+comm.dist.sed.pac.nonzero.18s.hell <- as.dist(comm.dist.sed.pac.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.pac.nonzero.18s.hell = vegan::mantel(comm.dist.sed.pac.nonzero.18s.hell, 
+    dist.geo.sed.pac.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.pac.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.pac.nonzero.18s.hell, ydis = dist.geo.sed.pac.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: -0.06749 
+    ##       Significance: 0.8675 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0771 0.0968 0.1147 0.1322 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5337,7 +6315,43 @@ mantel.test.ZM.geo.sed.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0555 0.0732 0.0882 0.1063 
+    ## 0.0551 0.0720 0.0874 0.1053 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.sed.atl.matrix.18s <- as.matrix(dist.geo.sed.Atl.18s)
+comm.dist.sed.atl.matrix.18s <- as.matrix(comm.dist.sed.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.sed.atl.matrix.18s[dist.geo.sed.atl.matrix.18s == 0] <- NA
+comm.dist.sed.atl.matrix.18s[is.na(dist.geo.sed.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.sed.atl.nonzero.18s <- as.dist(dist.geo.sed.atl.matrix.18s)
+comm.dist.sed.atl.nonzero.18s <- as.dist(comm.dist.sed.atl.matrix.18s)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.atl.nonzero.18s = vegan::mantel(comm.dist.sed.atl.nonzero.18s, 
+    dist.geo.sed.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.atl.nonzero.18s
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.atl.nonzero.18s, ydis = dist.geo.sed.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.07814 
+    ##       Significance: 0.0486 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0586 0.0775 0.0928 0.1142 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5377,7 +6391,43 @@ mantel.test.ZM.geo.hell.sed.Atl.18s  #still sig, higher r stat
     ## 
     ## Upper quantiles of permutations (null model):
     ##    90%    95%  97.5%    99% 
-    ## 0.0586 0.0737 0.0881 0.1022 
+    ## 0.0585 0.0757 0.0893 0.1067 
+    ## Permutation: free
+    ## Number of permutations: 9999
+
+``` r
+# first transform to matrices to edit
+dist.geo.sed.atl.matrix.18s <- as.matrix(dist.geo.sed.Atl.18s)
+comm.dist.sed.atl.matrix.18s.hell <- as.matrix(comm.dist.hell.sed.Atl.18s)
+
+# change all 0s to NAs
+dist.geo.sed.atl.matrix.18s[dist.geo.sed.atl.matrix.18s == 0] <- NA
+comm.dist.sed.atl.matrix.18s.hell[is.na(dist.geo.sed.atl.matrix.18s)] <- NA
+
+# change back to distances
+dist.geo.sed.atl.nonzero.18s <- as.dist(dist.geo.sed.atl.matrix.18s)
+comm.dist.sed.atl.nonzero.18s.hell <- as.dist(comm.dist.sed.atl.matrix.18s.hell)
+
+# mantel test with no 0s bc using na.rm = TRUE
+mantel.test.ZM.geo.sed.atl.nonzero.18s.hell = vegan::mantel(comm.dist.sed.atl.nonzero.18s.hell, 
+    dist.geo.sed.atl.nonzero.18s, method = "spearman", permutations = 9999, 
+    na.rm = TRUE)
+
+mantel.test.ZM.geo.sed.atl.nonzero.18s.hell
+```
+
+    ## 
+    ## Mantel statistic based on Spearman's rank correlation rho 
+    ## 
+    ## Call:
+    ## vegan::mantel(xdis = comm.dist.sed.atl.nonzero.18s.hell, ydis = dist.geo.sed.atl.nonzero.18s,      method = "spearman", permutations = 9999, na.rm = TRUE) 
+    ## 
+    ## Mantel statistic r: 0.0753 
+    ##       Significance: 0.0802 
+    ## 
+    ## Upper quantiles of permutations (null model):
+    ##    90%    95%  97.5%    99% 
+    ## 0.0680 0.0878 0.1040 0.1202 
     ## Permutation: free
     ## Number of permutations: 9999
 
@@ -5403,7 +6453,7 @@ dist_MRM.bc.sed.Atl.18s
 
     ## $coef
     ##                      comm.dist.sed.Atl.18s       pval
-    ## Int                           9.643854e-01 0.00320032
+    ## Int                           9.643854e-01 0.00240024
     ## dist.geo.sed.Atl.18s          5.960346e-09 0.00010001
     ## 
     ## $r.squared
@@ -5422,7 +6472,7 @@ dist_MRM.hel.sed.Atl.18s
 
     ## $coef
     ##                      comm.dist.hell.sed.Atl.18s       pval
-    ## Int                                1.362263e+00 0.27582758
+    ## Int                                1.362263e+00 0.27162716
     ## dist.geo.sed.Atl.18s               7.590931e-09 0.00010001
     ## 
     ## $r.squared
@@ -5568,10 +6618,14 @@ globe <- map_data("world")
 mybreaks = c(0, 25, 50, 75, 100)
 
 # plot world map
-#ggplot() + geom_polygon(data = globe, aes(x = long, y = lat, 
+ggplot() + geom_polygon(data = globe, aes(x = long, y = lat, 
     group = group), fill = "grey", alpha = 0.3) + coord_quickmap(xlim = c(-175, 
     175), ylim = c(0, 85))
+```
 
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-1.png)<!-- -->
+
+``` r
 ## abundant plots ##
 
 # tax.list.asvs
@@ -5633,21 +6687,21 @@ for (i in ASVs.plot) {
 }
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
 
 ``` r
 # Colletotrichum - SV219 # Although not an ASV identified by
@@ -5669,7 +6723,7 @@ avgs_ps_its_asv_melt <- summarise(grouped_ps_its_asv_melt, mean = 100 *
     mean(Abundance), sd = 100 * sd(Abundance), se = 100 * se(Abundance))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
 
 ``` r
 # add factors to order plots
@@ -5701,48 +6755,131 @@ ITS_SV219_plot <- p + theme(legend.position = "none") + scale_x_discrete(labels 
 # plot results, observation notes based on visual differences
 
 # when mapping plot - LEAVES
-#ITS_SV219_plot  #mostly Pacific, leaves + roots
+ITS_SV219_plot  #mostly Pacific, leaves + roots
+```
 
-#plot.list$ITS_SV260  #more abundant on leaves, roots, not in sediment, GLOBAL!  - more abundant leaf / root vs. sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-2.png)<!-- -->
 
-#plot.list$ITS_SV362  #only Croatia and only leaves - chytrid - interesting! similar pattern in high abundance to was seen in Ettinger & Eisen (2019)  - more abundant leaf / root vs. sed deseq
+``` r
+plot.list$ITS_SV260  #more abundant on leaves, roots, not in sediment, GLOBAL!  - more abundant leaf / root vs. sed deseq
+```
 
-#plot.list$ITS_SV426  #leaves > roots > sediment, possibly global, but also abundant in FM sediment? - more abundant leaf / root vs. sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-3.png)<!-- -->
 
+``` r
+plot.list$ITS_SV362  #only Croatia and only leaves - chytrid - interesting! similar pattern in high abundance to was seen in Ettinger & Eisen (2019)  - more abundant leaf / root vs. sed deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-4.png)<!-- -->
+
+``` r
+plot.list$ITS_SV426  #leaves > roots > sediment, possibly global, but also abundant in FM sediment? - more abundant leaf / root vs. sed deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-5.png)<!-- -->
+
+``` r
 asv_leaf <- c("ITS_SV219", "ITS_SV260", "ITS_SV362", "ITS_SV426")
 
 # when mapping plot - ROOTS
-#plot.list$ITS_SV52
+plot.list$ITS_SV52
+```
 
-#plot.list$ITS_SV60  #more abundant leaf, roots - more abundant leaf / root vs. sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-6.png)<!-- -->
 
-#plot.list$ITS_SV107  #more abundant on roots - more abundant leaf / root vs. sed deseq
+``` r
+plot.list$ITS_SV60  #more abundant leaf, roots - more abundant leaf / root vs. sed deseq
+```
 
-#plot.list$ITS_SV125  #more abundant leaf, roots - more abundant root vs. sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-7.png)<!-- -->
 
-#plot.list$ITS_SV234  #more abundant roots, possibly semi-global - more abundant leaf / root vs. sed deseq
+``` r
+plot.list$ITS_SV107  #more abundant on roots - more abundant leaf / root vs. sed deseq
+```
 
-#plot.list$ITS_SV355  #more abundant on roots, possibly semi-global - more abundant leaf / root vs. sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-8.png)<!-- -->
 
-#plot.list$ITS_SV497  #leaves, roots, global? not in sediment - more abundant leaf / root vs. sed deseq
+``` r
+plot.list$ITS_SV125  #more abundant leaf, roots - more abundant root vs. sed deseq
+```
 
-#plot.list$ITS_SV841  # roots, semi-global? - more abundant root vs. leaf and sed deseq
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-9.png)<!-- -->
 
-#plot.list$ITS_SV855  # roots, some leaves, global? - more abundant roots > leaves > sediment deseq
+``` r
+plot.list$ITS_SV234  #more abundant roots, possibly semi-global - more abundant leaf / root vs. sed deseq
+```
 
-#plot.list$ITS_SV883  # roots, some leaves, global? - more abundant roots > leaves > sediment
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-10.png)<!-- -->
 
+``` r
+plot.list$ITS_SV355  #more abundant on roots, possibly semi-global - more abundant leaf / root vs. sed deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-11.png)<!-- -->
+
+``` r
+plot.list$ITS_SV497  #leaves, roots, global? not in sediment - more abundant leaf / root vs. sed deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-12.png)<!-- -->
+
+``` r
+plot.list$ITS_SV841  # roots, semi-global? - more abundant root vs. leaf and sed deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-13.png)<!-- -->
+
+``` r
+plot.list$ITS_SV855  # roots, some leaves, global? - more abundant roots > leaves > sediment deseq
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-14.png)<!-- -->
+
+``` r
+plot.list$ITS_SV883  # roots, some leaves, global? - more abundant roots > leaves > sediment
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-15.png)<!-- -->
+
+``` r
 asv_root <- c("ITS_SV52", "ITS_SV60", "ITS_SV107", "ITS_SV125", 
     "ITS_SV234", "ITS_SV355", "ITS_SV497", "ITS_SV841", "ITS_SV855", 
     "ITS_SV883")
 
+# country specific - no differeces across tissues, etc, prob
+# no need for map plot
+plot.list$ITS_SV75  #more abundant in Wales - Pacific vs. Atlantic deseq
+```
 
+    ## NULL
+
+``` r
+plot.list$ITS_SV230  #only Wales - Pacfic vs. Atlantic deseq
+```
+
+    ## NULL
+
+``` r
+plot.list$ITS_SV389  #more on leaves, Wales - Pacfic vs. Atlantic deseq 
+```
+
+    ## NULL
+
+``` r
 # sediment
-#plot.list$ITS_SV679  #mostly sediment - more abundant root and sed vs. leaf deseq
+plot.list$ITS_SV679  #mostly sediment - more abundant root and sed vs. leaf deseq
+```
 
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-16.png)<!-- -->
+
+``` r
 # messy / weak signal
-#plot.list$ITS_SV1045  # roots, leafs, pacific? weak - more abundant leaf / root vs. sed deseq
+plot.list$ITS_SV1045  # roots, leafs, pacific? weak - more abundant leaf / root vs. sed deseq
+```
 
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-17.png)<!-- -->
+
+``` r
 asv_leaf
 ```
 
@@ -5807,21 +6944,37 @@ for (i in asv_leaf) {
 }
 ```
 
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
 
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
 
 ``` r
-#map.plot.list$ITS_SV219
+map.plot.list$ITS_SV219
+```
 
-#map.plot.list$ITS_SV260
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-18.png)<!-- -->
 
-#map.plot.list$ITS_SV362
+``` r
+map.plot.list$ITS_SV260
+```
 
-#map.plot.list$ITS_SV426
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-19.png)<!-- -->
 
+``` r
+map.plot.list$ITS_SV362
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-20.png)<!-- -->
+
+``` r
+map.plot.list$ITS_SV426
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-21.png)<!-- -->
+
+``` r
 asv_root
 ```
 
@@ -5891,38 +7044,78 @@ for (i in asv_root) {
 }
 ```
 
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
 
 ``` r
-#map.plot.list$ITS_SV52
+map.plot.list$ITS_SV52
+```
 
-#map.plot.list$ITS_SV60
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-22.png)<!-- -->
 
-#map.plot.list$ITS_SV107
+``` r
+map.plot.list$ITS_SV60
+```
 
-#map.plot.list$ITS_SV125
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-23.png)<!-- -->
 
-#map.plot.list$ITS_SV234
+``` r
+map.plot.list$ITS_SV107
+```
 
-#map.plot.list$ITS_SV355
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-24.png)<!-- -->
 
-#map.plot.list$ITS_SV497
+``` r
+map.plot.list$ITS_SV125
+```
 
-#map.plot.list$ITS_SV841
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-25.png)<!-- -->
 
-#map.plot.list$ITS_SV855
+``` r
+map.plot.list$ITS_SV234
+```
 
-#map.plot.list$ITS_SV883
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-26.png)<!-- -->
 
+``` r
+map.plot.list$ITS_SV355
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-27.png)<!-- -->
+
+``` r
+map.plot.list$ITS_SV497
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-28.png)<!-- -->
+
+``` r
+map.plot.list$ITS_SV841
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-29.png)<!-- -->
+
+``` r
+map.plot.list$ITS_SV855
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-30.png)<!-- -->
+
+``` r
+map.plot.list$ITS_SV883
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot-31.png)<!-- -->
+
+``` r
 # combine plots (examples for discussion in text?)
 
 # sv219, not core (all), dispersal limited (leaves only)
@@ -6039,25 +7232,63 @@ for (i in ASVs.plot.18s) {
 }
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Sample.Isolated.From', 'Site', 'OTU' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Sample.Isolated.From', 'Site', 'OTU'. You can override using the `.groups` argument.
 
 ``` r
 # no Colletotrichum in 18S data
 
 # when mapping plot - LEAVES
-#plot.list.18s$"18S_SV756"  # leaves, pacific? - sig roots vs. sediment, NA > europe
+plot.list.18s$"18S_SV756"  # leaves, pacific? - sig roots vs. sediment, NA > europe
+```
 
-#plot.list.18s$"18S_SV928"  # leaves and roots, global? - sig leaf and roots vs. sediment
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-1.png)<!-- -->
 
-#plot.list.18s$"18S_SV968"  # leaf and roots, mostly crotia - sig leaf and roots vs sediment, sig. NA > Asia and europe > Asia
+``` r
+plot.list.18s$"18S_SV928"  # leaves and roots, global? - sig leaf and roots vs. sediment
+```
 
-#plot.list.18s$"18S_SV1977"  #leaf and roots, alaska / canada - sig NA > europe
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-2.png)<!-- -->
 
+``` r
+plot.list.18s$"18S_SV968"  # leaf and roots, mostly crotia - sig leaf and roots vs sediment, sig. NA > Asia and europe > Asia
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-3.png)<!-- -->
+
+``` r
+plot.list.18s$"18S_SV1734"  #leaf and roots, alaska - sig pacific vs atlantic
+```
+
+    ## NULL
+
+``` r
+plot.list.18s$"18S_SV1977"  #leaf and roots, alaska / canada - sig NA > europe
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-4.png)<!-- -->
+
+``` r
 asv_leaf <- c("18S_SV756", "18S_SV928", "18S_SV968", "18S_SV1734", 
     "18S_SV1977")
+
+
+# when mapping plot -sediment
+plot.list.18s$"18S_SV897"  #sediment, Japan - sig asia > NA > Europe
+```
+
+    ## NULL
+
+``` r
+plot.list.18s$"18S_SV2023"  #roots, sediment, Japan - sig asia > europe / NA
+```
+
+    ## NULL
+
+``` r
+asv_sed <- c("18S_SV897", "18S_SV2023")
 
 
 asv_leaf
@@ -6125,24 +7356,122 @@ for (i in asv_leaf) {
 }
 ```
 
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
 
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
-    ## `summarise()` regrouping output by 'Site', 'OTU', 'lat', 'long' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
 
 ``` r
-#map.plot.list$"18S_SV756"
+map.plot.list$"18S_SV756"
+```
 
-#map.plot.list$"18S_SV928"
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-5.png)<!-- -->
 
-#map.plot.list$"18S_SV968"
+``` r
+map.plot.list$"18S_SV928"
+```
 
-#map.plot.list$"18S_SV1734"
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-6.png)<!-- -->
 
-#map.plot.list$"18S_SV1977"
+``` r
+map.plot.list$"18S_SV968"
+```
 
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-7.png)<!-- -->
+
+``` r
+map.plot.list$"18S_SV1734"
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-8.png)<!-- -->
+
+``` r
+map.plot.list$"18S_SV1977"
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-9.png)<!-- -->
+
+``` r
+asv_sed
+```
+
+    ## [1] "18S_SV897"  "18S_SV2023"
+
+``` r
+mybreaks.sed = list(`18S_SV897` = c(0, 10, 15, 20, 25), `18S_SV2023` = c(0, 
+    2, 4, 6, 8))
+limits.sed = list(`18S_SV897` = c(0, 25), `18S_SV2023` = c(0, 
+    8))
+
+for (i in asv_sed) {
+    # subset phyloseq object to only have ASV of interest
+    ps_18s_prune = prune_taxa(i, ps.18s_OF_nz_ZM_ZEN.RA)
+    
+    # subset to leaves
+    ps_18s_prune_sed <- subset_samples(ps_18s_prune, Sample.Isolated.From == 
+        "sediment")
+    
+    # melt to df
+    df_g <- psmelt(ps_18s_prune_sed)
+    
+    # Reorder data to show biggest cities on top
+    df_g <- df_g %>% arrange(Abundance) %>% mutate(Abundance = Abundance * 
+        100)
+    
+    df_g$lat <- df_g$Latitude.Value.must.be.in.decimal.format.with.values.between..90.and.90.
+    df_g$long <- df_g$Longitude.Value.must.be.in.decimal.format.with.values.between..180.and.180.
+    
+    
+    grouped_g_ps_18s_prune_sed <- group_by(df_g, Site, OTU, lat, 
+        long, Sample.Isolated.From)
+    avgs_g_ps_18s_prune_sed <- summarise(grouped_g_ps_18s_prune_sed, 
+        mean = mean(Abundance))
+    
+    
+    # Build the map
+    p <- ggplot() + geom_polygon(data = globe, aes(x = long, 
+        y = lat, group = group), fill = "grey", alpha = 0.3) + 
+        geom_point(data = avgs_g_ps_18s_prune_sed, aes(x = long, 
+            y = lat, size = mean, color = mean), shape = 20, 
+            stroke = FALSE) + scale_size_continuous(breaks = as.numeric(unlist(mybreaks.sed[i])), 
+        limits = as.numeric(unlist(limits.sed[i]))) + coord_quickmap(xlim = c(-175, 
+        175), ylim = c(25, 85)) + scale_color_viridis(end = 0.9, 
+        breaks = as.numeric(unlist(mybreaks.sed[i])), limits = as.numeric(unlist(limits.sed[i]))) + 
+        theme(text = element_text(size = 18)) + guides(color = guide_legend(title = "Mean Relative Abundance"), 
+        size = guide_legend(title = "Mean Relative Abundance")) + 
+        facet_wrap(~Sample.Isolated.From, strip.position = "left") + 
+        theme(panel.background = element_blank(), panel.border = element_blank(), 
+            panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+            legend.key = element_rect(fill = NA, color = NA), 
+            axis.text.y = element_blank(), axis.text.x = element_blank(), 
+            axis.title.x = element_blank(), axis.ticks.y = element_blank(), 
+            axis.ticks.x = element_blank(), axis.title.y = element_blank())
+    
+    # plot
+    
+    map.plot.list[[i]] = p
+    
+}
+```
+
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'Site', 'OTU', 'lat', 'long'. You can override using the `.groups` argument.
+
+``` r
+map.plot.list$"18S_SV897"
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-10.png)<!-- -->
+
+``` r
+map.plot.list$"18S_SV2023"
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/mapplot_18s-11.png)<!-- -->
+
+``` r
 # combine plots (examples for discussion in text?)
 
 # sv928, core (leaf and root), plant selected
@@ -6245,9 +7574,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -6298,11 +7625,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -6372,13 +7694,13 @@ summary(as.factor(pred.leaf$fit_class))
 
 ``` r
 #get core asvs
-leaf_core_asv_list <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+leaf_core_asv_list <- tibble(x = occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-leaf_asv_ap <- tidy(pred.leaf$ASV[ap]) #plant selected
+leaf_asv_ap <- tibble(x = pred.leaf$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-leaf_asv_bp <- tidy(pred.leaf$ASV[bp]) #dispersal limited
+leaf_asv_bp <- tibble(x = pred.leaf$ASV[bp]) #dispersal limited
  
 #join together these lists
 leaf_asvs <- full_join(leaf_core_asv_list, leaf_asv_ap, by = "x")
@@ -6487,9 +7809,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -6540,11 +7860,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -6614,13 +7929,13 @@ summary(as.factor(pred.root$fit_class))
 
 ``` r
 #get core asvs
-root_core_asv_list <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+root_core_asv_list <- tibble(x= occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-root_asv_ap <- tidy(pred.root$ASV[ap]) #plant selected
+root_asv_ap <- tibble(x= pred.root$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-root_asv_bp <- tidy(pred.root$ASV[bp]) #dispersal limited
+root_asv_bp <- tibble(x =pred.root$ASV[bp]) #dispersal limited
  
 #join together these lists
 root_asvs <- full_join(root_core_asv_list, root_asv_ap, by = "x")
@@ -6731,9 +8046,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -6784,11 +8097,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -6858,13 +8166,13 @@ summary(as.factor(pred.sed$fit_class))
 
 ``` r
 #get core asvs
-sed_core_asv_list <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+sed_core_asv_list <- tibble(x= occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-sed_asv_ap <- tidy(pred.sed$ASV[ap]) #plant selected
+sed_asv_ap <- tibble(x=pred.sed$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-sed_asv_bp <- tidy(pred.sed$ASV[bp]) #dispersal limited
+sed_asv_bp <- tibble(x=pred.sed$ASV[bp]) #dispersal limited
  
 #join together these lists
 sed_asvs <- full_join(sed_core_asv_list, sed_asv_ap, by = "x")
@@ -7025,9 +8333,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -7078,11 +8384,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -7154,13 +8455,13 @@ summary(as.factor(pred.leaf$fit_class))
 
 ``` r
 #get core asvs
-leaf_core_asv_list_18s <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+leaf_core_asv_list_18s <- tibble(x=occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-leaf_asv_ap_18s <- tidy(pred.leaf$ASV[ap]) #plant selected
+leaf_asv_ap_18s <- tibble(x=pred.leaf$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-leaf_asv_bp_18s <- tidy(pred.leaf$ASV[bp]) #dispersal limited
+leaf_asv_bp_18s <- tibble(x=pred.leaf$ASV[bp]) #dispersal limited
  
 #join together these lists
 leaf_asvs_18s <- full_join(leaf_core_asv_list_18s, leaf_asv_ap_18s, by = "x")
@@ -7168,6 +8469,7 @@ leaf_asvs.v2_18s <- full_join(leaf_asvs_18s, leaf_asv_bp_18s, by = "x")
 
 #remame column
 names(leaf_asvs.v2_18s)[1] <- "ASV"
+
 
 #Add information about selection
 leaf_asvs.v3_18s <- leaf_asvs.v2_18s %>%
@@ -7269,9 +8571,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -7322,11 +8622,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -7396,13 +8691,13 @@ summary(as.factor(pred.root$fit_class))
 
 ``` r
 #get core asvs
-root_core_asv_list.18s <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+root_core_asv_list.18s <- tibble(x=occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-root_asv_ap.18s <- tidy(pred.root$ASV[ap]) #plant selected
+root_asv_ap.18s <- tibble(x=pred.root$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-root_asv_bp.18s <- tidy(pred.root$ASV[bp]) #dispersal limited
+root_asv_bp.18s <- tibble(x=pred.root$ASV[bp]) #dispersal limited
  
 #join together these lists
 root_asvs.18s <- full_join(root_core_asv_list.18s, root_asv_ap.18s, by = "x")
@@ -7512,9 +8807,7 @@ PresenceSum <- data.frame(otu = as.factor(row.names(otu)), otu) %>%
             Index=(sumF+sumG)/nS)                 # calculating weighting Index based on number of sites detected
 ```
 
-    ## `summarise()` regrouping output by 'otu' (override with `.groups` argument)
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'otu'. You can override using the `.groups` argument.
 
 ``` r
 otu_ranked <- occ_abun %>%
@@ -7565,11 +8858,6 @@ BC_ranked <- data.frame(rank = as.factor(row.names(t(temp_BC_matrix))),t(temp_BC
   summarise(MeanBC=mean(BC)) %>%            # mean Bray-Curtis dissimilarity
   arrange(desc(-MeanBC)) %>%
   mutate(proportionBC=MeanBC/max(MeanBC))   # proportion of the dissimilarity explained by the n number of ranked OTUs
-```
-
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 Increase=BC_ranked$MeanBC[-1]/BC_ranked$MeanBC[-length(BC_ranked$MeanBC)]
 increaseDF <- data.frame(IncreaseBC=c(0,(Increase)), rank=factor(c(1:(length(Increase)+1))))
 BC_ranked <- left_join(BC_ranked, increaseDF)
@@ -7639,13 +8927,13 @@ summary(as.factor(pred.sed$fit_class))
 
 ``` r
 #get core asvs
-sed_core_asv_list.18s <- tidy(occ_abun$otu[occ_abun$fill == 'core'])
+sed_core_asv_list.18s <- tibble(x=occ_abun$otu[occ_abun$fill == 'core'])
 
 #get asvs that are above predicted model
-sed_asv_ap.18s <- tidy(pred.sed$ASV[ap]) #plant selected
+sed_asv_ap.18s <- tibble(x=pred.sed$ASV[ap]) #plant selected
 
 #get asvs that are below predicted model
-sed_asv_bp.18s <- tidy(pred.sed$ASV[bp]) #dispersal limited
+sed_asv_bp.18s <- tibble(x=pred.sed$ASV[bp]) #dispersal limited
  
 #join together these lists
 sed_asvs.18s <- full_join(sed_core_asv_list.18s, sed_asv_ap.18s, by = "x")
@@ -7725,9 +9013,7 @@ ggsave(filename = 'JGI_18S/AOcurves_neutralmodels_core.pdf', plot = last_plot(),
 ```
 
 ``` r
-# Plotting for the AO curves
-
-# nake table of core ASV
+# make table of core ASV
 
 leaf_core_asv_list$leaf <- 1
 root_core_asv_list$root <- 1
@@ -7796,11 +9082,76 @@ vennDiagram(venn_counts.ao, cex = c(1, 1.2, 0.8), names = c("Leaf",
 # grid.newpage()
 ```
 
+### Making venn diagrams of overlap (if any) between tissues generally
+
+``` r
+# make table
+
+ps_OF_nz_ZM_ZEN.LEAF.nz <- prune_taxa(taxa_sums(ps_OF_nz_ZM_ZEN.LEAF) > 
+    0, ps_OF_nz_ZM_ZEN.LEAF)
+
+ps_OF_nz_ZM_ZEN.root.nz <- prune_taxa(taxa_sums(ps_OF_nz_ZM_ZEN.root) > 
+    0, ps_OF_nz_ZM_ZEN.root)
+
+ps_OF_nz_ZM_ZEN.sed.nz <- prune_taxa(taxa_sums(ps_OF_nz_ZM_ZEN.sed) > 
+    0, ps_OF_nz_ZM_ZEN.sed)
+
+
+ps_OF_nz_ZM_ZEN.merged <- merge_phyloseq(ps_OF_nz_ZM_ZEN.LEAF.nz, 
+    ps_OF_nz_ZM_ZEN.root.nz, ps_OF_nz_ZM_ZEN.sed.nz)
+
+ps_OF_nz_ZM_ZEN.merged.coll <- merge_samples(ps_OF_nz_ZM_ZEN.merged, 
+    "Sample.Isolated.From")
+
+otus.its.venn.all <- t(as.data.frame(otu_table(ps_OF_nz_ZM_ZEN.merged.coll)))
+
+
+# Now create the object to calculate the variable
+# intersections and then plot the Venn Diagram.
+
+venn_counts.its.all <- vennCounts(otus.its.venn.all)
+venn_counts.its.all
+```
+
+    ##   leaf root sediment Counts
+    ## 1    0    0        0      0
+    ## 2    0    0        1   1968
+    ## 3    0    1        0   1367
+    ## 4    0    1        1    239
+    ## 5    1    0        0   1008
+    ## 6    1    0        1     49
+    ## 7    1    1        0    282
+    ## 8    1    1        1    176
+    ## attr(,"class")
+    ## [1] "VennCounts"
+
+``` r
+# sample type venn
+vennDiagram(venn_counts.its.all, cex = c(1, 1.2, 0.8), names = c("Leaf", 
+    "Root", "Sediment"), circle.col = c("#DCE318FF", "#1F968BFF", 
+    "#3F4788FF"))
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/venn_its.all-1.png)<!-- -->
+
+``` r
+# Plot for publication (RMarkdown hates) grid.newpage() #add
+# 0 to it after venn.its <- draw.triple.venn(category =
+# c('Leaf', 'Root', 'Sediment'), fill = c('#DCE318FF',
+# '#1F968BFF', '#3F4788FF'), lwd = c(1.5,1.5,1.5), #outline
+# width cat.col = c('#DCE318FF', '#1F968BFF', '#3F4788FF'),
+# cat.cex = 1.75, margin = 0.05, cat.fontfamily =
+# rep('Arial', 3), cex = c(1.75, 1.5, 2, 1.5, 1.5, 1.75,
+# 2.25), direct.area = TRUE, area.vector = c(583, 191, 1458,
+# 36, 124, 291, 1981), cat.dist=c(.05,.05,.05)) tiff(filename
+# = 'Venn_diagram.all.its.v2.tiff', width = 6, height = 5,
+# units = 'in', res = 300) grid.draw(venn.its) dev.off()
+# grid.newpage()
+```
+
 ### Making venn diagrams of overlap (if any) between different cores
 
 ``` r
-# Plotting for the AO curves
-
 # make core table
 
 leaf_core_asv_list_18s$leaf <- 1
@@ -7869,6 +9220,74 @@ vennDiagram(venn_counts.18s.ao, cex = c(1, 1.2, 0.8), names = c("Leaf",
 # 'Venn_diagram.AO.18s.v2.tiff', width = 6, height = 5, units
 # = 'in', res = 300) grid.draw(venn.its) dev.off()
 # grid.newpage()
+```
+
+### Making venn diagrams of overlap (if any) between tissues generally
+
+``` r
+# make table
+
+ps.18s_OF_nz_ZM_ZEN.LEAF.nz <- prune_taxa(taxa_sums(ps.18s_OF_nz_ZM_ZEN.LEAF) > 
+    0, ps.18s_OF_nz_ZM_ZEN.LEAF)
+
+ps.18s_OF_nz_ZM_ZEN.root.nz <- prune_taxa(taxa_sums(ps.18s_OF_nz_ZM_ZEN.root) > 
+    0, ps.18s_OF_nz_ZM_ZEN.root)
+
+ps.18s_OF_nz_ZM_ZEN.sed.nz <- prune_taxa(taxa_sums(ps.18s_OF_nz_ZM_ZEN.sed) > 
+    0, ps.18s_OF_nz_ZM_ZEN.sed)
+
+
+ps.18s_OF_nz_ZM_ZEN.merged <- merge_phyloseq(ps.18s_OF_nz_ZM_ZEN.LEAF.nz, 
+    ps.18s_OF_nz_ZM_ZEN.root.nz, ps.18s_OF_nz_ZM_ZEN.sed.nz)
+
+ps.18s_OF_nz_ZM_ZEN.merged.coll <- merge_samples(ps.18s_OF_nz_ZM_ZEN.merged, 
+    "Sample.Isolated.From")
+
+otus.18s.venn.all <- t(as.data.frame(otu_table(ps.18s_OF_nz_ZM_ZEN.merged.coll)))
+
+
+# Now create the object to calculate the variable
+# intersections and then plot the Venn Diagram.
+
+venn_counts.18s.all <- vennCounts(otus.18s.venn.all)
+venn_counts.18s.all
+```
+
+    ##   leaf root sediment Counts
+    ## 1    0    0        0      0
+    ## 2    0    0        1    847
+    ## 3    0    1        0    186
+    ## 4    0    1        1     97
+    ## 5    1    0        0     34
+    ## 6    1    0        1      8
+    ## 7    1    1        0     23
+    ## 8    1    1        1     21
+    ## attr(,"class")
+    ## [1] "VennCounts"
+
+``` r
+# sample type venn
+vennDiagram(venn_counts.18s.all, cex = c(1, 1.2, 0.8), names = c("Leaf", 
+    "Root", "Sediment"), circle.col = c("#DCE318FF", "#1F968BFF", 
+    "#3F4788FF"))
+```
+
+![](RMarkdown_GlobalAmplicon_files/figure-gfm/venn_18s.all-1.png)<!-- -->
+
+``` r
+# Plot for publication (RMarkdown hates)
+
+# grid.newpage() #add 0 to it after venn.its <-
+# draw.triple.venn(category = c('Leaf', 'Root', 'Sediment'),
+# fill = c('#DCE318FF', '#1F968BFF', '#3F4788FF'), lwd =
+# c(1.5,1.5,1.5), #outline width cat.col = c('#DCE318FF',
+# '#1F968BFF', '#3F4788FF'), cat.cex = 1.75, margin = 0.05,
+# cat.fontfamily = rep('Arial', 3), cex = c(1.5, 1.5, 1.75,
+# 1.5, 1.5, 1.75, 2), direct.area = TRUE, area.vector = c(34,
+# 23, 186, 8, 21, 97, 847), cat.dist=c(.05,.05,.05))
+# tiff(filename = 'Venn_diagram.all.18s.v2.tiff', width = 6,
+# height = 5, units = 'in', res = 300) grid.draw(venn.its)
+# dev.off() grid.newpage()
 ```
 
 # Investigating other microbial eukaryotes associated with ZM in 18S rRNA gene data
@@ -7984,7 +9403,7 @@ avgs_g_18s_euk.phy_filt <- summarise(grouped_g_18s_euk.phy_filt,
         se(Abundance))
 ```
 
-    ## `summarise()` regrouping output by 'Sample.Isolated.From' (override with `.groups` argument)
+    ## `summarise()` has grouped output by 'Sample.Isolated.From'. You can override using the `.groups` argument.
 
 ``` r
 write.csv(avgs_g_18s_euk.phy_filt, "JGI_18S/Eukaryotic_Mean_Abundance.csv")
